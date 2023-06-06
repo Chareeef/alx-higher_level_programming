@@ -1,7 +1,7 @@
 #include "lists.h"
 
 /**
- * insert_nodeint - inserts a number into a sorted singly linked list
+ * insert_node - inserts a number into a sorted singly linked list
  * @head: pointer to pointer to singly linked list's head
  * @n: new number
  *
@@ -10,7 +10,7 @@
 listint_t *insert_node(listint_t **head, int n)
 {
 	listint_t *new;
-	listint_t *current;
+	listint_t *current = *head;
 
 	if (!head)
 		return (NULL);
@@ -19,17 +19,20 @@ listint_t *insert_node(listint_t **head, int n)
 	if (!new)
 		return (NULL);
 	new->n = n;
-
-	current = *head;
-
-	/* if we must add the new node at the list's head */
+	/* If we must add the new node at the list is empty */
+	if (!current)
+	{
+		new->next = current;
+		*head = new;
+		return (new);
+	}
+	/* If we must add it at the beginnig */
 	if (n <= current->n)
 	{
 		new->next = current;
 		*head = new;
 		return (new);
 	}
-
 	/* In other cases */
 	while (current->next)
 	{
@@ -41,8 +44,7 @@ listint_t *insert_node(listint_t **head, int n)
 		}
 		current = current->next;
 	}
-
-	/* We are at the end of the list */
+	/* We are at the end of the list*/
 	current->next = new;
 	new->next = NULL;
 
