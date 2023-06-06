@@ -1,7 +1,8 @@
 #!/usr/bin/python3
-def magi_calculation(a, b, c):
+def magic_calculation(a, b, c):
     if a < b:
         return c
     elif c > b:
         return a + b
     return a * b - c
+#!/usr/bin/python3
