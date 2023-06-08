@@ -11,10 +11,6 @@ if __name__ == '__main__':
     b = int(argv[3])
     operator = argv[2]
 
-    if operator not in ('+', '-', '*', '/'):
-        print('Unknown operator. Available operators: +, -, * and /')
-        exit(1)
-
     match operator:
         case '+':
             print('{} + {} = {}'.format(a, b, add(a, b)))
@@ -24,3 +20,6 @@ if __name__ == '__main__':
             print('{} * {} = {}'.format(a, b, mul(a, b)))
         case '/':
             print('{} / {} = {}'.format(a, b, div(a, b)))
+        case _:
+            print('Unknown operator. Available operators: +, -, * and /')
+            exit(1)
