@@ -1,0 +1,16 @@
+#!/usr/bin/python3
+def print_matrix_integer(matrix=[[]]):
+    col_length = len(matrix)
+    if col_length == 0:
+        print()
+        return
+
+    row_length = len(matrix[0])
+    if row_length == 0:
+        print()
+        return
+
+    for i in range(col_length):
+        for j in range(row_length - 1):
+            print(matrix[i][j], end=' ')
+        print(matrix[i][j + 1])
