@@ -1,5 +1,8 @@
 #!/usr/bin/python3
 def print_matrix_integer(matrix=[[]]):
+    if matrix is None:
+        return
+
     col_length = len(matrix)
     if col_length == 0:
         print()
