@@ -12,7 +12,7 @@ def print_matrix_integer(matrix=[[]]):
 
     for i in range(col_length):
         for j in range(row_length - 1):
-            print(matrix[i][j], end=' ')
+            print('{}'.format(matrix[i][j]), end=' ')
         if row_length == 1:
             j = -1
-        print(matrix[i][j + 1])
+        print('{}'.format(matrix[i][j + 1]))
