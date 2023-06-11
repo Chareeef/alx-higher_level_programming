@@ -31,7 +31,7 @@ int is_palindrome(listint_t **head)
 		current = current->next;
 	}
 
-	for (i = 0, j = size - 1; i <= size / 2; i++, j--)
+	for (i = 0, j = size - 1; i < size / 2; i++, j--)
 	{
 		if (numbers[i] != numbers[j])
 			return (0);
