@@ -11,7 +11,8 @@ void print_python_list_info(PyObject *p)
 {
         Py_ssize_t i, len;
 	PyListObject *list_ob = (PyListObject *) p;
-        PyObject *item = NULL;
+	PyTypeObject *itemType = NULL;
+	const char *typeName = NULL;
 
         len = PyList_Size(p);
 
@@ -19,20 +20,9 @@ void print_python_list_info(PyObject *p)
         printf("[*] Allocated = %ld\n", list_ob->allocated);
         for (i = 0; i < len; i++)
         {
-                item = PyList_GetItem(p, i);
-		if (PyLong_Check(item))
-                	printf("Element %ld is: int\n", i);
-		else if (PyFloat_Check(item))
-                	printf("Element %ld is: float\n", i);
-		else if (PyUnicode_Check(item))
-                	printf("Element %ld is: str\n", i);
-		else if (PyList_Check(item))
-                	printf("Element %ld is: list\n", i);
-		else if (PyTuple_Check(item))
-                	printf("Element %ld is: tuple\n", i);
-		else if (PySet_Check(item))
-                	printf("Element %ld is: set\n", i);
-		else if (PyDict_Check(item))
-                	printf("Element %ld is: dict\n", i);
+		itemType = Py_TYPE(list_ob->ob_item[i]);
+		typeName = itemType->tp_name;
+
+                printf("Element %ld: %s\n", i, typeName);
         }
 }
