@@ -5,4 +5,4 @@ def search_replace(my_list, search, replace):
             return x
         else:
             return replace
-    return [list(map(rep, my_list))]
+    return list(map(rep, my_list))
