@@ -18,7 +18,7 @@ void print_python_bytes(PyObject *p)
 	}
 	size = (unsigned int) ((PyVarObject *) p)->ob_size;
 	string = ((PyBytesObject *) p)->ob_sval;
-	str_length = size;
+	str_length = size + 1;
 	if (str_length > 10)
 		str_length = 10;
 
