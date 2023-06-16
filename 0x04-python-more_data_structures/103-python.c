@@ -13,7 +13,7 @@ void print_python_bytes(PyObject *p)
 	printf("[.] bytes object info\n");
 	if (!PyBytes_Check(p))
 	{
-		printf("\t[ERROR] Invalid Bytes Object\n");
+		printf("  [ERROR] Invalid Bytes Object\n");
 		return;
 	}
 	size = (unsigned int) ((PyVarObject *) p)->ob_size;
@@ -22,9 +22,9 @@ void print_python_bytes(PyObject *p)
 	if (str_length > 10)
 		str_length = 10;
 
-	printf("\tsize: %u\n", size);
-	printf("\ttrying string: %s\n", string);
-	printf("\tfirst %u bytes:", str_length);
+	printf("  size: %u\n", size);
+	printf("  trying string: %s\n", string);
+	printf("  first %u bytes:", str_length);
 	for (i = 0; i < str_length; i++)
 		printf(" %02x", string[i]);
 	printf("\n");
