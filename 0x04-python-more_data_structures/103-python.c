@@ -17,7 +17,7 @@ void print_python_bytes(PyObject *p)
 		return;
 	}
 	size = (unsigned int) ((PyVarObject *) p)->ob_size;
-	string = PyBytes_AsString(p);
+	string = ((PyBytesObject *) p)->ob_sval;
 	str_length = size;
 	if (str_length > 10)
 		str_length = 10;
@@ -26,7 +26,7 @@ void print_python_bytes(PyObject *p)
 	printf("  trying string: %s\n", string);
 	printf("  first %u bytes:", str_length);
 	for (i = 0; i < str_length; i++)
-		printf(" %02x", string[i]);
+		printf(" %02x", (unsigned char) string[i]);
 	printf("\n");
 }
 
