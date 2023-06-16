@@ -7,7 +7,7 @@
  */
 void print_python_bytes(PyObject *p)
 {
-	unsigned int size, i;
+	unsigned int size, str_length, i;
 	char *string;
 
 	printf("[.] bytes object info\n");
@@ -18,12 +18,15 @@ void print_python_bytes(PyObject *p)
 	}
 	size = (unsigned int) ((PyVarObject *) p)->ob_size;
 	string = PyBytes_AsString(p);
+	str_length = size;
+	if (str_length > 10)
+		str_length = 10;
 
 	printf("\tsize: %u\n", size);
 	printf("\ttrying string: %s\n", string);
-	printf("\tfirst 9 bytes:");
-	for (i = 0; i < 9 && string[i] != '\0'; i++)
-		printf(" %x", string[i]);
+	printf("\tfirst %u bytes:", str_length);
+	for (i = 0; i < str_length; i++)
+		printf(" %02x", string[i]);
 	printf("\n");
 }
 
