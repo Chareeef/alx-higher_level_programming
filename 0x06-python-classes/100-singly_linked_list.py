@@ -57,13 +57,13 @@ class SinglyLinkedList:
         if current_n is None:
             self.__head = Node(value)
             return
+        elif value <= current_n.data:
+            self.__head = Node(value, current_n)
+            return
 
         next_n = current_n.next_node
-        if next_n is None or value < current_n.data:
-            if value < current_n.data:
-                self.__head = Node(value, current_n)
-            else:
-                current_n.next_node = Node(value)
+        if next_n is None:
+            current_n.next_node = Node(value, None)
             return
 
         while current_n.next_node is not None:
@@ -75,7 +75,7 @@ class SinglyLinkedList:
 
         new = Node(value, next_n)
 
-        if current_n is self.__head:
+        if current_n is self.__head and value < current_n.data:
             self.__head = new
         elif current_n is not None:
             current_n.next_node = new
