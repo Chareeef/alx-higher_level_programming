@@ -38,6 +38,7 @@ class Node:
         else:
             self.__next_node = next_n
 
+
 class SinglyLinkedList:
     '''A Singly Linked List class with head as private attribute
     and sorted_insert() method'''
@@ -48,6 +49,9 @@ class SinglyLinkedList:
     def sorted_insert(self, value):
         '''Inserts a new Node into the correct sorted
         position in the list (increasing order)'''
+
+        if type(value) is not int:
+            raise TypeError("data must be an integer")
 
         current_n = self.__head
         if current_n is None:
