@@ -14,21 +14,22 @@ class Square:
     getter and setter properties, and 'area' method'''
 
     def __init__(self, size=0, position=(0, 0)):
-        if type(size) is not int:
+        if not isinstance(size, int):
             raise TypeError('size must be an integer')
         elif size < 0:
             raise ValueError('size must be >= 0')
-        elif type(position) is not tuple:
+        elif not isinstance(position, tuple):
             raise TypeError('must be a tuple of 2 positive integers')
         elif len(position) != 2:
             raise TypeError('must be a tuple of 2 positive integers')
-        elif type(position[0]) is not int or type(position[1]) is not int:
+        x, y = position
+        if not isinstance(x, int) or not isinstance(y, int):
             raise TypeError('must be a tuple of 2 positive integers')
-        elif position[0] < 0 or position[1] < 0:
+        elif x < 0 or y < 0:
             raise TypeError('must be a tuple of 2 positive integers')
-        else:
-            self.__size = size
-            self.__position = position
+
+        self.__size = size
+        self.__position = position
 
     @property
     def size(self):
@@ -37,12 +38,12 @@ class Square:
 
     @size.setter
     def size(self, value):
-        if type(value) is not int:
+        if not isinstance(value, int):
             raise TypeError('size must be an integer')
-        if value < 0:
+        elif value < 0:
             raise ValueError('size must be >= 0')
-        else:
-            self.__size = value
+
+        self.__size = value
 
     @property
     def position(self):
@@ -51,16 +52,17 @@ class Square:
 
     @position.setter
     def position(self, value):
-        if type(value) is not tuple:
+        if not isinstance(value, tuple):
             raise TypeError('must be a tuple of 2 positive integers')
         elif len(value) != 2:
             raise TypeError('must be a tuple of 2 positive integers')
-        elif type(value[0]) is not int or type(value[1]) is not int:
+        x, y = value
+        if not isinstance(x, int) or not isinstance(y, int):
             raise TypeError('must be a tuple of 2 positive integers')
-        elif value[0] < 0 or value[1] < 0:
+        elif x < 0 or y < 0:
             raise TypeError('must be a tuple of 2 positive integers')
-        else:
-            self.__position = value
+
+        self.__position = value
 
     def area(self):
         '''Returns the square area'''
