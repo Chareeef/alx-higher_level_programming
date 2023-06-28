@@ -2,7 +2,7 @@
 '''
 Write a class Square that defines a square by:
 * Private instance attribute: size & position with their getters and setters
-* Instantiation with optional size  and position (with type and value verifications)
+* Instantiation with optional size and position (with type/value verification)
 * Public instance method: 'def area(self):' that returns the square area
 * Public instance method: 'def my_print(self):' that prints in stdout
 the square with the character '#' taking into account its position
