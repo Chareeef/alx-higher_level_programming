@@ -1,6 +1,10 @@
 #include <Python.h>
 #include <stdio.h>
 
+void print_python_bytes(PyObject *p);
+void print_python_list(PyObject *p);
+void print_python_float(PyObject *p);
+
 /**
  * print_python_bytes - print infos about a Python bytes
  * @p: a Python Object
@@ -53,6 +57,11 @@ void print_python_list(PyObject *p)
 	unsigned int i;
 
 	printf("[*] Python list info\n");
+	if (!PyList_Check(p))
+	{
+		printf("  [ERROR] Invalid List Object\n");
+		return;
+	}
 	printf("[*] Size of the Python List = %u\n", size);
 	printf("[*] Allocated = %u\n", allocated);
 
@@ -91,7 +100,7 @@ void print_python_float(PyObject *p)
 		printf("  [ERROR] Invalid Float Object\n");
 		return;
 	}
-	printf("  value: %lf", float_ob->ob_fval)
+	printf("  value: %lf\n", float_ob->ob_fval);
 }
 
 /*
