@@ -56,6 +56,8 @@ void print_python_list(PyObject *p)
 	const char *type_name;
 	unsigned int i;
 
+	setbuf(stdout, NULL);
+
 	printf("[*] Python list info\n");
 	if (!PyList_Check(p))
 	{
@@ -94,13 +96,15 @@ void print_python_float(PyObject *p)
 {
 	PyFloatObject *float_ob = (PyFloatObject *) p;
 
+	setbuf(stdout, NULL);
+
 	printf("[.] float object info\n");
 	if (!PyFloat_Check(p))
 	{
 		printf("  [ERROR] Invalid Float Object\n");
 		return;
 	}
-	printf("  value: %lf\n", float_ob->ob_fval);
+	printf("  value: %lg\n", float_ob->ob_fval);
 }
 
 /*

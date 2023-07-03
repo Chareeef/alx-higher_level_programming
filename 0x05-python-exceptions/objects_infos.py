@@ -38,4 +38,7 @@ l = [-1.0, -0.1, 0.0, 1.0, 3.14, 3.14159, 3.14159265, 3.141592653589793238462643
 print(l)
 lib.print_python_list(l);
 lib.print_python_float(l);
-lib.print_python_list(f);
+f = 3.141592653589793238462643383279502884197169399375105820974944592307816406286
+lib.print_python_float(f);
+f = 3.1
+lib.print_python_float(f);
