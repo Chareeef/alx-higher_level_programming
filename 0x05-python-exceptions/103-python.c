@@ -95,7 +95,8 @@ Element 0: bytes
 void print_python_float(PyObject *p)
 {
 	PyFloatObject *float_ob = (PyFloatObject *) p;
-	double num = (double) float_ob->ob_fval;
+	double num = float_ob->ob_fval;
+	char *buff;
 
 	setbuf(stdout, NULL);
 
@@ -106,15 +107,10 @@ void print_python_float(PyObject *p)
 		return;
 	}
 	fflush(stdout);
-	if (((int)(num * 1000000) % 10) == 0)
-	{
-		printf("  value: %g", num);
-		if (num == (int) num)
-			printf(".0");
-		printf("\n");
-	}
-	else
-		printf("  value: %e\n", num);
+	buff = PyOS_double_to_string(num, 'r', 0,
+			Py_DTSF_ADD_DOT_0, NULL);
+	printf("  value: %s\n", buff);
+	free(buff);
 }
 
 /*
