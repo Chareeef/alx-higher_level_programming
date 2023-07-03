@@ -63,6 +63,8 @@ void print_python_list(PyObject *p)
 		printf("Element %u: %s\n", i, type_name);
 		if (PyBytes_Check(item))
 				print_python_bytes(item);
+		else if (PyFloat_Check(item))
+				print_python_float(item);
 	}
 }
 
@@ -71,4 +73,28 @@ void print_python_list(PyObject *p)
 [*] Size of the Python List = 2
 [*] Allocated = 2
 Element 0: bytes
+*/
+
+/* ----- */
+
+/**
+ * print_python_float - print infos about a Python float
+ * @p: a Python Object
+ */
+void print_python_float(PyObject *p)
+{
+	PyFloatObject *float_ob = (PyFloatObject *) p;
+
+	printf("[.] float object info\n");
+	if (!PyFloat_Check(p))
+	{
+		printf("  [ERROR] Invalid Float Object\n");
+		return;
+	}
+	printf("  value: %lf", float_ob->ob_fval)
+}
+
+/*
+[.] float object info
+  value: 3.14
 */
