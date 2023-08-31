@@ -8,7 +8,7 @@ Test-Driven Development is a software development methodology that emphasizes wr
 
 ## 2. Importance of Tests
 
-Tests play a crucial role in software development. They help catch bugs early, ensure that changes don't break existing functionality, and provide a safety net for refactoring. By having comprehensive tests, you can have confidence in the reliability of your code.
+Tests play a crucial role in software development. They help catch bugs early, ensure that changes don't break existing functionality, and provide a safety net for refactoring. By having comprehensive tests, we can have confidence in the reliability of your code.
 
 ## 3. Writing Docstrings for Tests
 
@@ -42,22 +42,49 @@ def addition(a, b):
     return a + b
 ```
 
-## 5. Basic Option Flags for Tests
+## 5. Basic Option Flags for Tests (doctest and unittest)
 
-When running tests, you can use various command-line flags to modify their behavior. Some common options include:
+When running tests using `doctest` and `unittest`, we can use command-line flags to control the testing process.
 
-- `-v` or `--verbose`: Provides detailed output about the tests being run.
-- `-k` or `--keyword`: Runs tests that match a specific keyword.
-- `-x` or `--exitfirst`: Stops running tests after the first failure.
+### Using Basic Option Flags with `doctest`
 
-Example:
-```
-pytest -v -k addition
-```
+- **Verbose Output (`-v`):**
+  Use `-v` for detailed output on each test being executed.
+  ```
+  python -m doctest -v my_module.py
+  ```
+
+- **Selective Testing (`-k`):**
+  Use `-k` to run tests matching a keyword.
+  ```
+  python -m doctest -k add_function my_module.py
+  ```
+
+### Using Basic Option Flags with `unittest`
+
+- **Verbose Output (`-v`):**
+  Utilize `-v` for detailed output on each test method.
+  ```
+  python -m unittest -v test_module.py
+  ```
+
+- **Selecting Specific Tests:**
+  Specify a test method to run.
+  ```
+  python -m unittest test_module.TestClass.test_method
+  ```
+
+- **Stopping on First Failure (`-f`):**
+  Use `-f` to halt testing on the first failure.
+  ```
+  python -m unittest -f test_module.py
+  ```
+
+These flags help us customize test runs, focusing on specific tests and obtaining detailed information to catch issues efficiently.
 
 ## 6. Finding Edge Cases
 
 Edge cases are scenarios where the code might behave unexpectedly. It's important to identify and test these cases to ensure your code handles them correctly. Examples include using extreme values, empty inputs, or boundary conditions.
 
-By focusing on these learning objectives, you'll gain a deep understanding of test-driven development and its core principles. Happy coding and testing!
+By focusing on these learning objectives, we will gain a deep understanding of test-driven development and its core principles. Happy coding and testing!
 
