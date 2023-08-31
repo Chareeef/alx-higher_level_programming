@@ -1,0 +1,91 @@
+This test file is for the function defined as:
+def matrix_divided(matrix, div):
+
+=======
+
+# Import matrix_divided from 2-matrix_divided
+
+>>> matrix_divided = __import__('2-matrix_divided').matrix_divided
+
+	---
+
+# Raise a TypeError if matrix is not a list of lists of ints or floats:
+
+>>> matrix_divided(65, 4)
+Traceback (most recent call last):
+...
+TypeError: matrix must be a matrix (list of lists) of integers/floats
+
+>>> matrix_divided([1, 2, 3], 4)
+Traceback (most recent call last):
+...
+TypeError: matrix must be a matrix (list of lists) of integers/floats
+
+>>> matrix = [[1, 2, 'exc'], [4, 5, 6]]
+>>> matrix_divided(matrix, 4)
+Traceback (most recent call last):
+...
+TypeError: matrix must be a matrix (list of lists) of integers/floats
+
+>>> matrix = [[1, 2, 3], []]
+>>> matrix_divided(matrix, 4)
+Traceback (most recent call last):
+...
+TypeError: matrix must be a matrix (list of lists) of integers/floats
+
+	---
+
+# Ensure that each row of the matrix has the same size:
+
+>>> matrix = [[1, 2], [4, 5, 6], [7, 8, 9]]
+>>> matrix_divided(matrix, 4)
+Traceback (most recent call last):
+...
+TypeError: Each row of the matrix must have the same size
+
+>>> matrix = [[1], [4, 5, 6], [7]]
+>>> matrix_divided(matrix, 4)
+Traceback (most recent call last):
+...
+TypeError: Each row of the matrix must have the same size
+
+# Ensure that div is a number (integer or float) different than 0: 
+
+>>> matrix = [[1, 2, 4], [4, 5, 6], [7, 8, 9]]
+
+>>> matrix_divided(matrix, True)
+Traceback (most recent call last):
+...
+TypeError: div must be a number
+
+>>> matrix_divided(matrix, False)
+Traceback (most recent call last):
+...
+TypeError: div must be a number
+
+>>> matrix_divided(matrix, (9, ))
+Traceback (most recent call last):
+...
+TypeError: div must be a number
+
+>>> matrix_divided(matrix, 0)
+Traceback (most recent call last):
+...
+ZeroDivisionError: division by zero
+
+	---
+
+# Ensure good output:
+
+>>> matrix = [[1, 2, 3.75], [4, 6, -6.5]]
+
+>>> print(matrix_divided(matrix, 1)) #doctest: +NORMALIZE_WHITESPACE
+[[1.0, 2.0, 3.75], [4.0, 6.0, -6.5]]
+
+>>> print(matrix_divided(matrix, 3)) #doctest: +NORMALIZE_WHITESPACE
+[[0.33, 0.67, 1.25],
+ [1.33, 2.0, -2.17]]
+
+>>> print(matrix) #doctest: +NORMALIZE_WHITESPACE
+[[1, 2, 3.75], [4, 6, -6.5]]
+
