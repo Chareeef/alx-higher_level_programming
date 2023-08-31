@@ -1,7 +1,7 @@
 #!/usr/bin/python3
 '''
-Implementation of 0-add_integers
-Tested with tests/0-add_integers.txt
+Implementation of 0-add_integer
+Tested with tests/0-add_integer.txt
 '''
 
 
@@ -21,4 +21,4 @@ def add_integer(a, b=98):
 
 if __name__ == '__main__':
     import doctest
-    doctest.testfile('tests/0-add_integers.txt')
+    doctest.testfile('tests/0-add_integer.txt')

@@ -1,0 +1,49 @@
+This test file is for the function defined as:
+def say_my_name(first_name, last_name=""):
+
+=======
+
+# Importing say_my_name from 3-say_my_name
+
+>>> say_my_name = __import__('3-say_my_name').say_my_name
+
+	---
+
+# Raise a TypeError if first_name or last_name are not strings:
+
+>>> say_my_name(8, "hi")
+Traceback (most recent call last):
+...
+TypeError: first_name must be a string
+
+>>> say_my_name(True)
+Traceback (most recent call last):
+...
+TypeError: first_name must be a string
+
+>>> say_my_name(8, 5)
+Traceback (most recent call last):
+...
+TypeError: first_name must be a string
+
+>>> say_my_name("hi", 6)
+Traceback (most recent call last):
+...
+TypeError: last_name must be a string
+
+	---
+
+# Check for the good output:
+
+>>> say_my_name('Youssef Charif', 'Hamidi')
+My name is Youssef Charif Hamidi
+
+>>> say_my_name('Youssef Charif')
+My name is Youssef Charif 
+
+>>> say_my_name('  ', 'Hamidi')
+My name is    Hamidi
+
+>>> say_my_name(' ', '   ')
+My name is      
+
