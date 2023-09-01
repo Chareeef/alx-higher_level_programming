@@ -18,8 +18,7 @@ def text_indentation(text):
     if not isinstance(text, str):
         raise TypeError("text must be a string")
 
-
-    # Strip text:
+    # Strip text to avoid leading and trailing spaces:
     stripped_text = text.strip()
 
     # Initialize Index and defining last_index:
@@ -45,6 +44,7 @@ def text_indentation(text):
 
         # Increment index:
         i += 1
+
 
 if __name__ == "__main__":
     import doctest
