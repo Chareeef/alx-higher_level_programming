@@ -1,27 +1,27 @@
 #!/usr/bin/python3
-'''
+"""
 Implementation of matrix_divided
 Tested with tests/2-matrix_divided.txt
-'''
+"""
 
 
 def matrix_divided(matrix, div):
-    '''
+    """
     Divides all elements of a matrix by div
     and store the results in a new matrix
 
     Returns: The new matrix
-    '''
+    """
 
     # Error messages:
-    error_matrix_types = 'matrix must be a matrix (list of lists) '
-    error_matrix_types += 'of integers/floats'
-    
-    error_different_size = 'Each row of the matrix must have the same size'
+    error_matrix_types = "matrix must be a matrix (list of lists) "
+    error_matrix_types += "of integers/floats"
 
-    error_div_type = 'div must be a number'
+    error_different_size = "Each row of the matrix must have the same size"
 
-    error_division_zero = 'division by zero'
+    error_div_type = "div must be a number"
+
+    error_division_zero = "division by zero"
 
     # Check type of matrix and its elements:
     if not isinstance(matrix, list):
@@ -32,13 +32,13 @@ def matrix_divided(matrix, div):
         if not isinstance(row, list):
             raise TypeError(error_matrix_types)
         if len(row) < 1:
-                raise TypeError(error_matrix_types)
+            raise TypeError(error_matrix_types)
         for n in row:
             if not isinstance(n, (int, float)):
                 raise TypeError(error_matrix_types)
 
     # Check that each row in matrix has the same size:
-    first_row_length = len(matrix[0]) 
+    first_row_length = len(matrix[0])
     for row in matrix:
         if len(row) != first_row_length:
             raise TypeError(error_different_size)
@@ -62,6 +62,8 @@ def matrix_divided(matrix, div):
     # Return the new matrix populated with quotients:
     return quotient_matrix
 
-if __name__ == '__main__':
+
+if __name__ == "__main__":
     import doctest
-    doctest.testfile('tests/2-matrix_divided.txt')
+
+    doctest.testfile("tests/2-matrix_divided.txt")
