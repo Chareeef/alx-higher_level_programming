@@ -1,9 +1,6 @@
 This test file is for the function defined as:
 def matrix_mul(m_a, mb):
 
-	***
-# doctest: +NORMALIZE_WHITESPACE
-	***
 
 ####################################################################
 m_a and m_b must be validated with these requirements in this order

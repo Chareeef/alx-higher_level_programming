@@ -1,7 +1,7 @@
 #!/usr/bin/python3
 """
-Implementation of 0-matrix_mul
-Tested with tests/0-matrix_mul.txt
+Implementation of 100-matrix_mul
+Tested with tests/100-matrix_mul.txt
 """
 
 
