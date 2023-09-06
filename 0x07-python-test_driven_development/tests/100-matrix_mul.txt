@@ -15,6 +15,12 @@ def matrix_mul(m_a, mb):
 	Traceback (most recent call last):
 	TypeError: m_b must be a list
 
+	>>> m_b = [9, 6, 4]
+	>>> m_a = 7
+	>>> matrix_mul(m_a, m_b)
+	Traceback (most recent call last):
+	TypeError: m_a must be a list
+
 		***
 
 	>>> m_a = [9, 6, 4]
@@ -22,6 +28,12 @@ def matrix_mul(m_a, mb):
 	>>> matrix_mul(m_a, m_b)
 	Traceback (most recent call last):
 	TypeError: m_a must be a list of lists
+
+	>>> m_b = [9, 6, 4]
+	>>> m_a = [['u'], [5, 8, 22]]
+	>>> matrix_mul(m_a, m_b)
+	Traceback (most recent call last):
+	TypeError: m_b must be a list of lists
 
 		***
 
@@ -45,6 +57,12 @@ def matrix_mul(m_a, mb):
 	Traceback (most recent call last):
 	TypeError: m_b should contain only integers or floats
 
+	>>> m_a = [[9, (8, 5)], [6, 4]]
+	>>> m_b = [[8+7, 8.7, 2], [5, 1]]
+	>>> matrix_mul(m_a, m_b)
+	Traceback (most recent call last):
+	TypeError: m_a should contain only integers or floats
+
 		***
 
 	>>> m_a = [[9, 6, 4], [1, 2, 3], [4, 6, 7]]
@@ -52,6 +70,12 @@ def matrix_mul(m_a, mb):
 	>>> matrix_mul(m_a, m_b)
 	Traceback (most recent call last):
 	TypeError: each row of m_b must be of the same size
+
+	>>> m_a = [[9, 6, 4], [1, 2, 3], [4, 6, 9, 4, 7]]
+	>>> m_b = [[9, 6, 4], [1, 2, 3, 3.5], [4, 6, 9.88, 7]]
+	>>> matrix_mul(m_a, m_b)
+	Traceback (most recent call last):
+	TypeError: each row of m_a must be of the same size
 
 		***
 
