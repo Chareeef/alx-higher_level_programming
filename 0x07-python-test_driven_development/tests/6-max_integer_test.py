@@ -14,11 +14,17 @@ class TestMaxInteger(unittest.TestCase):
     def test_full_lists(self):
         '''Testing different integers lists'''
 
+        list_ints = [6, -3, 88]
+        self.assertEqual(max_integer(list_ints), 88)
+
         list_ints = [0, 6, -77, 0, 5]
         self.assertEqual(max_integer(list_ints), 6)
 
         list_ints = [555, -7000, 87, 1]
         self.assertEqual(max_integer(list_ints), 555)
+
+        list_ints = [6]
+        self.assertEqual(max_integer(list_ints), 6)
 
     def test_empty_list(self):
         '''Testing empty list'''

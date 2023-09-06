@@ -1,37 +1,6 @@
 This test file is for the function defined as:
 def matrix_mul(m_a, mb):
 
-
-####################################################################
-m_a and m_b must be validated with these requirements in this order
-
-m_a and m_b must be an list of lists of integers or floats:
-
-if m_a or m_b is not a list:
-	raise a TypeError exception with the message:
-		m_a must be a list or m_b must be a list
-
-if m_a or m_b is not a list of lists:
-	raise a TypeError exception with the message:
-		m_a must be a list of lists or m_b must be a list of lists
-
-if m_a or m_b is empty (it means: = [] or = [[]]): 
-	raise a ValueError exception with the message:
-		m_a can't be empty or m_b can't be empty
-
-if one element of those list of lists is not an integer or a float:
-	raise a TypeError exception with the message:
-		m_a should contain only integers or floats or m_b should contain only integers or floats
-
-if m_a or m_b is not a rectangle (all ‘rows’ should be of the same size):
-	raise a TypeError exception with the message:
-		each row of m_a must be of the same size or each row of m_b must be of the same size
-
-If m_a and m_b can’t be multiplied:
-	raise a ValueError exception with the message:
-		m_a and m_b can't be multiplied
-####################################################################
-
 # Importing the function
 
 >>> matrix_mul = __import__('100-matrix_mul').matrix_mul
@@ -44,7 +13,7 @@ If m_a and m_b can’t be multiplied:
 	>>> m_b = 7
 	>>> matrix_mul(m_a, m_b)
 	Traceback (most recent call last):
-	TypeError: m_a must be a list or m_b must be a list
+	TypeError: m_b must be a list
 
 		***
 
@@ -52,7 +21,7 @@ If m_a and m_b can’t be multiplied:
 	>>> m_b = [['u'], [5, 8, 22]]
 	>>> matrix_mul(m_a, m_b)
 	Traceback (most recent call last):
-	TypeError: m_a must be a list of lists or m_b must be a list of lists
+	TypeError: m_a must be a list of lists
 
 		***
 
@@ -60,13 +29,13 @@ If m_a and m_b can’t be multiplied:
 	>>> m_b = [[]]
 	>>> matrix_mul(m_a, m_b)
 	Traceback (most recent call last):
-	ValueError: m_a can't be empty or m_b can't be empty
+	ValueError: m_b can't be empty
 
 	>>> m_a = [[], []]
 	>>> m_b = [[8.7, 5]]
 	>>> matrix_mul(m_a, m_b)
 	Traceback (most recent call last):
-	ValueError: m_a can't be empty or m_b can't be empty
+	ValueError: m_a can't be empty
 
 		***
 
@@ -74,7 +43,7 @@ If m_a and m_b can’t be multiplied:
 	>>> m_b = [[8+7, '9', 2], [5, 1]]
 	>>> matrix_mul(m_a, m_b)
 	Traceback (most recent call last):
-	TypeError: m_a should contain only integers or floats or m_b should contain only integers or floats
+	TypeError: m_b should contain only integers or floats
 
 		***
 
@@ -82,7 +51,7 @@ If m_a and m_b can’t be multiplied:
 	>>> m_b = [[9, 6, 4], [1, 2, 3, 3.5], [4, 6, 7]]
 	>>> matrix_mul(m_a, m_b)
 	Traceback (most recent call last):
-	TypeError: each row of m_a must be of the same size or each row of m_b must be of the same size
+	TypeError: each row of m_b must be of the same size
 
 		***
 

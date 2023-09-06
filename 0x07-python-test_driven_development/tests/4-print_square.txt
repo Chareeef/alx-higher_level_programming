@@ -29,7 +29,6 @@ def print_square(size):
 ##########
 
 >>> print_square(0)
-<BLANKLINE>
 
 	---
 
