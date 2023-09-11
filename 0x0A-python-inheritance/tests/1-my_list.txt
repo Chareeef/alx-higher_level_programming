@@ -62,9 +62,17 @@ This test file is for the class MyList inheriting from list
 	>>> l = MyList([])
 	>>> l
 	[]
+	>>> l = MyList()
+	>>> l
+	[]
 	>>> l1 = MyList((1, 8, 3, 6))
 	>>> l1
 	[1, 8, 3, 6]
 	>>> l2 = MyList([1, 8, 3, 6])
 	>>> l1 == l2
 	True
+	>>> l1 = MyList((1, -8, 3, -6))
+	>>> print(l1)
+	[1, -8, 3, -6]
+	>>> l1.print_sorted()
+	[-8, -6, 1, 3]
