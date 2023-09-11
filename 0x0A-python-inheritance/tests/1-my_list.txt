@@ -1,12 +1,15 @@
-This test file is for the class MyList inheriting list
+# This test file is for the class MyList inheriting list
+
 
 =======
+
 
 # Importing the class
 
 	>>> MyList = __import__('1-my_list').MyList
 
-		____
+		---
+
 
 # Creating an instance of MyList
 
@@ -22,7 +25,7 @@ This test file is for the class MyList inheriting list
 
 	>>> issubclass(MyList, list)
 	True
-	
+
 	>>> type(l) is MyList
 	True
 
@@ -30,48 +33,63 @@ This test file is for the class MyList inheriting list
 
 	>>> l
 	[]
+
 	>>> l.append(0)
 	>>> l.append(1)
 	>>> l.append(2)
 	>>> l.append(3)
+
 	>>> l
 	[0, 1, 2, 3]
+
 	>>> l.print_sorted()
 	[0, 1, 2, 3]
+
 	>>> l[2]
 	2
 	>>> l[3] = 4
 	>>> l
 	[0, 1, 2, 4]
+
 	>>> l.remove(1)
 	>>> l
 	[0, 2, 4]
+
 	>>> len(l)
 	3
+
 	>>> l.insert(3, 1)
+
 	>>> l
 	[0, 2, 4, 1]
+
 	>>> l.print_sorted()
 	[0, 1, 2, 4]
+
 	>>> l
 	[0, 2, 4, 1]
+
 	>>> l.clear()
 	>>> l
 	[]
+
 	>>> l.append(0)
 	>>> l.append(-1)
 	>>> l.append(2)
 	>>> l.append(-3)
 	>>> l
 	[0, -1, 2, -3]
+
 	>>> l.print_sorted()
 	[-3, -1, 0, 2]
 
 # Additionnal edge cases
 
 	>>> l += [0, 9, -7, 7, 3] + [2]
+
 	>>> l
 	[0, -1, 2, -3, 0, 9, -7, 7, 3, 2]
+
 	>>> l.print_sorted()
 	[-7, -3, -1, 0, 0, 2, 2, 3, 7, 9]
 	>>> l = MyList([])
