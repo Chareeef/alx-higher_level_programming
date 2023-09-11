@@ -11,12 +11,21 @@ class BaseGeometry():
     '''
 
     def area(self):
-        '''Not implemented yet. It raises an Exception'''
+        '''Not implemented yet.
+
+        Raises:
+            Exception: area() is not implemented
+        '''
 
         raise Exception('area() is not implemented')
 
     def integer_validator(self, name, value):
-        '''Validate a passed value to be an integer greater or equal than 1'''
+        '''Validate a passed value to be an integer greater or equal than 1
+
+        Raises:
+            - TypeError: if value is not an integer
+            - ValueError: if value < 1
+        '''
 
         if type(value) is not int:
             raise TypeError(f'{name} must be an integer')
