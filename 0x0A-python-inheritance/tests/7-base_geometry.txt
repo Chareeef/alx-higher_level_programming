@@ -1,0 +1,76 @@
+This test file is for the integer_validator() method of BaseGeometry class
+
+=======
+
+# Importing the class
+
+	>>> BaseGeometry = __import__('7-base_geometry').BaseGeometry
+
+		____
+
+# Creating an instance of BaseGeometry
+
+	>>> bg = BaseGeometry()
+
+# Testing type and hierarchy:
+
+	>>> isinstance(bg, BaseGeometry)
+	True
+
+	>>> type(bg) is BaseGeometry
+	True
+
+# Test different values:
+
+	>>> bg.integer_validator("age", 3)
+	>>> bg.integer_validator("price", 1234)
+
+	>>> bg.integer_validator("height", "tall")
+	Traceback (most recent call last):
+	TypeError: height must be an integer
+
+	>>> bg.integer_validator("ratio", 0.76)
+	Traceback (most recent call last):
+	TypeError: ratio must be an integer
+
+
+	>>> bg.integer_validator("is_tall", True)
+	Traceback (most recent call last):
+	TypeError: is_tall must be an integer
+
+	>>> bg.integer_validator("ex", '8')
+	Traceback (most recent call last):
+	TypeError: ex must be an integer
+
+	>>> bg.integer_validator("ex", [8])
+	Traceback (most recent call last):
+	TypeError: ex must be an integer
+
+	>>> bg.integer_validator("ex", {8})
+	Traceback (most recent call last):
+	TypeError: ex must be an integer
+
+	>>> bg.integer_validator("ex", (8, ))
+	Traceback (most recent call last):
+	TypeError: ex must be an integer
+
+	>>> bg.integer_validator("negative", -9)
+	Traceback (most recent call last):
+	ValueError: negative must be greater than 0
+
+
+	>>> bg.integer_validator("zero", 0)
+	Traceback (most recent call last):
+	ValueError: zero must be greater than 0
+
+	>>> bg.integer_validator("zero")
+	Traceback (most recent call last):
+	TypeError: BaseGeometry.integer_validator() missing 1 required positional argument: 'value'
+
+	>>> bg.integer_validator()
+	Traceback (most recent call last):
+	TypeError: BaseGeometry.integer_validator() missing 2 required positional arguments: 'name' and 'value'
+
+	>>> bg.area()
+	Traceback (most recent call last):
+	Exception: area() is not implemented
