@@ -48,3 +48,23 @@ This test file is for the class MyList inheriting from list
 	[0, 1, 2, 4]
 	>>> l
 	[0, 2, 4, 1]
+	>>> l.clear()
+	>>> l
+	[]
+
+# Additionnal edge cases
+
+	>>> l += [0, 9, 7, 7, 3] + [2]
+	>>> l
+	[0, 9, 7, 7, 3, 2]
+	>>> l.print_sorted()
+	[0, 2, 3, 7, 7, 9]
+	>>> l = MyList([])
+	>>> l
+	[]
+	>>> l1 = MyList((1, 8, 3, 6))
+	>>> l1
+	[1, 8, 3, 6]
+	>>> l2 = MyList([1, 8, 3, 6])
+	>>> l1 == l2
+	True
