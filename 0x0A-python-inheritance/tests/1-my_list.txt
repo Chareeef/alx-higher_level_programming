@@ -1,0 +1,50 @@
+This test file is for the class MyList inheriting from list
+
+=======
+
+# Importing the class
+
+	>>> MyList = __import__('1-my_list').MyList
+
+		____
+
+# Creating an instance of MyList
+
+	>>> l = MyList()
+
+# Testing type and hierarchy:
+
+	>>> isinstance(l, MyList)
+	True
+
+	>>> isinstance(l, list)
+	True
+
+	>>> issubclass(MyList, list)
+	True
+	
+# Testing list builtins
+
+	>>> l.append(0)
+	>>> l.append(1)
+	>>> l.append(2)
+	>>> l.append(3)
+	>>> l
+	[0, 1, 2, 3]
+	>>> l[2]
+	2
+	>>> l[3] = 4
+	>>> l
+	[0, 1, 2, 4]
+	>>> l.remove(1)
+	>>> l
+	[0, 2, 4]
+	>>> len(l)
+	3
+	>>> l.insert(3, 1)
+	>>> l
+	[0, 2, 4, 1]
+	>>> l.print_sorted()
+	[0, 1, 2, 4]
+	>>> l
+	[0, 2, 4, 1]
