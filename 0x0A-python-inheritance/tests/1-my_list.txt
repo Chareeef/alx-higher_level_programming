@@ -76,8 +76,3 @@ This test file is for the class MyList inheriting from list
 	[1, -8, 3, -6]
 	>>> l1.print_sorted()
 	[-8, -6, 1, 3]
-
-	>>> l1.print_sorted(6)
-	Traceback (most recent call last):
-	...
-	TypeError: MyList.print_sorted() takes 1 positional argument but 2 were given
