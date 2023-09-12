@@ -18,7 +18,8 @@ print("Initial student:")
 print(student_1)
 print(type(student_1))
 print(type(j_student_1))
-print("{} {} {}".format(student_1.first_name, student_1.last_name, student_1.age))
+print("{} {} {}".format(student_1.first_name, student_1.last_name,
+                        student_1.age))
 
 print('\n', '-' * 22, '\n')
 
@@ -33,7 +34,8 @@ print("Fake student:")
 new_student_1 = Student("Fake", "Fake", 89)
 print(new_student_1)
 print(type(new_student_1))
-print("{} {} {}".format(new_student_1.first_name, new_student_1.last_name, new_student_1.age))
+print("{} {} {}".format(new_student_1.first_name, new_student_1.last_name,
+                        new_student_1.age))
 
 print('\n', '-' * 22, '\n')
 
@@ -43,4 +45,5 @@ new_j_student_1 = load_from_json_file(path)
 new_student_1.reload_from_json(j_student_1)
 print(new_student_1)
 print(type(new_student_1))
-print("{} {} {}".format(new_student_1.first_name, new_student_1.last_name, new_student_1.age))
+print("{} {} {}".format(new_student_1.first_name, new_student_1.last_name,
+                        new_student_1.age))
