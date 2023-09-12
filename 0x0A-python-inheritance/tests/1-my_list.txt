@@ -25,6 +25,8 @@ This test file is for the class MyList inheriting from list
 	
 # Testing list builtins
 
+	>>> l.print_sorted()
+	[]
 	>>> l.append(0)
 	>>> l.append(1)
 	>>> l.append(2)
