@@ -22,6 +22,14 @@ This test file is for the integer_validator() method of BaseGeometry class
 
 # Test different values:
 
+	>>> bg.integer_validator() # doctest: +ELLIPSIS
+	Traceback (most recent call last):
+	TypeError: ...
+
+	>>> bg.integer_validator("age") # doctest: +ELLIPSIS
+	Traceback (most recent call last):
+	TypeError: ...
+
 	>>> bg.integer_validator("age", 3)
 	>>> bg.integer_validator("price", 1234)
 
@@ -51,6 +59,10 @@ This test file is for the integer_validator() method of BaseGeometry class
 	TypeError: ex must be an integer
 
 	>>> bg.integer_validator("ex", (8, ))
+	Traceback (most recent call last):
+	TypeError: ex must be an integer
+
+	>>> bg.integer_validator("ex", None)
 	Traceback (most recent call last):
 	TypeError: ex must be an integer
 
