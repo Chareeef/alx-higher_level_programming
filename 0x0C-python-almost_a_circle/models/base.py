@@ -1,5 +1,5 @@
 #!/usr/bin/python3
-'''This module contains the base class'''
+'''This module contains the Base class'''
 
 
 class Base:

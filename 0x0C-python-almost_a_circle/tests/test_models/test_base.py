@@ -10,7 +10,13 @@ class TestBaseInstantiation(unittest.TestCase):
     the Base class instantiation works conveniently
     '''
 
+    def setUp(self):
+        '''Method that runs before every test'''
+        Base._Base__nb_objects = 0
+
     def test_monitor_id(self):
+        '''Test correct id for eavh instance'''
+
         # Without passing an id
         b1 = Base()
         self.assertEqual(b1.id, 1)
@@ -31,4 +37,5 @@ class TestBaseInstantiation(unittest.TestCase):
         self.assertEqual(b2.id, 2)
         self.assertEqual(b3.id, 9)
         self.assertEqual(b4.id, 3)
+
 
