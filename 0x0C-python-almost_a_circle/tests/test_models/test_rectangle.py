@@ -144,7 +144,7 @@ class TestRectangleDisplay(unittest.TestCase):
         '''Restore the standard output'''
         sys.stdout = sys.__stdout__
 
-    def test_display_5_on_7(self):
+    def test_display_5_on_7_no_xy(self):
         '''Test the Rectangle's display() public method'''
 
         r = Rectangle(5, 7)
@@ -156,31 +156,43 @@ class TestRectangleDisplay(unittest.TestCase):
 
         self.assertEqual(printed, expected)
 
-    def test_display_7_on_5(self):
+    def test_display_7_on_5_with_xy(self):
         '''Test the Rectangle's display() public method'''
 
-        r = Rectangle(7, 5)
+        r = Rectangle(7, 5, 1, 2)
 
         r.display()
 
         printed = self.stdout.getvalue()
-        expected = "#######\n" * 5
+        expected = ("\n" * 2) + (" #######\n" * 5)
 
         self.assertEqual(printed, expected)
 
-    def test_display_3_on_3(self):
+    def test_display_4_on_3_with_xy(self):
         '''Test the Rectangle's display() public method'''
 
-        r = Rectangle(3, 3)
+        r = Rectangle(4, 3, 4)
 
         r.display()
 
         printed = self.stdout.getvalue()
-        expected = "###\n" * 3
+        expected = "    ####\n" * 3
 
         self.assertEqual(printed, expected)
 
-    def test_display_1_on_1(self):
+    def test_display_3_on_3_with_xy(self):
+        '''Test the Rectangle's display() public method'''
+
+        r = Rectangle(3, 3, y=8)
+
+        r.display()
+
+        printed = self.stdout.getvalue()
+        expected = ("\n" * 8) + ("###\n" * 3)
+
+        self.assertEqual(printed, expected)
+
+    def test_display_1_on_1_no_xy(self):
         '''Test the Rectangle's display() public method'''
 
         r = Rectangle(1, 1)

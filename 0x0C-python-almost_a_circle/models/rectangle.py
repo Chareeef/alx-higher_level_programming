@@ -1,5 +1,3 @@
-#!/usr/bin/python3
-'''This module contains the Rectangle class'''
 from models.base import Base
 
 
@@ -87,7 +85,10 @@ class Rectangle(Base):
 
         rect_repr = ''
 
+        rect_repr += '\n' * self.y
+
         for h in range(self.height):
+            rect_repr += ' ' * self.x
             for w in range(self.width):
                 rect_repr += '#'
             if h < self.height - 1:
