@@ -9,6 +9,11 @@ class Rectangle(Base):
         height (int)
         x (int)
         y (int)
+
+    Methods:
+        area(self)
+        display(self)
+        update(self, *args, **kwargs)
     '''
 
     def __init__(self, width, height, x=0, y=0, id=None):
@@ -97,7 +102,7 @@ class Rectangle(Base):
         print(rect_repr)
 
     def update(self, *args, **kwargs):
-        '''Update Rectangle arguments'''
+        '''Update Rectangle attributes'''
 
         if args and len(args) > 0:
             i = 0

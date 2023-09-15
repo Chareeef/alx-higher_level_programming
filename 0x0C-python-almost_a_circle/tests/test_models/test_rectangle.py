@@ -25,7 +25,7 @@ class TestRectangleInstantiation(unittest.TestCase):
         self.assertTrue(type(r1) is Rectangle)
         self.assertTrue(issubclass(Rectangle, Base))
 
-    def test_missing_argument(self):
+    def test_wrong_argument(self):
         '''Test if a wrong arguments number is passed'''
 
         with self.assertRaises(TypeError):
@@ -121,7 +121,7 @@ class TestRectangleArea(unittest.TestCase):
         self.assertEqual(r2.area(), 4149762)
         self.assertEqual(r3.area(), 1)
 
-    def test_missing_argument(self):
+    def test_wrong_argument(self):
         '''Test if a wrong arguments number is passed'''
 
         with self.assertRaises(TypeError):
@@ -204,7 +204,7 @@ class TestRectangleDisplay(unittest.TestCase):
 
         self.assertEqual(printed, expected)
 
-    def test_missing_argument(self):
+    def test_wrong_argument(self):
         '''Test if a wrong arguments number is passed'''
 
         with self.assertRaises(TypeError):
