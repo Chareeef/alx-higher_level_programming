@@ -84,6 +84,9 @@ class TestRectangleInstantiation(unittest.TestCase):
         with self.assertRaisesRegex(TypeError, 'x must be an integer'):
             r = Rectangle(4, 3, 'bar', 'Doe', 7)
 
+        with self.assertRaisesRegex(TypeError, 'width must be an integer'):
+            r = Rectangle(float('inf'), 3, 'bar', 'Doe', 7)
+
         with self.assertRaisesRegex(ValueError, 'height must be > 0'):
             r = Rectangle(4, 3)
             r.height = 0
@@ -97,3 +100,14 @@ class TestRectangleInstantiation(unittest.TestCase):
         with self.assertRaisesRegex(ValueError, 'y must be >= 0'):
             r = Rectangle(2, 2, 5, 8)
             r.y = -6
+
+    def test_rectangle_area(self):
+        '''Test the Rectangle's area() public method'''
+
+        r1 = Rectangle(2, 9)
+        r2 = Rectangle(8886, 467)
+        r3 = Rectangle(1, 1, 3, 8, 6)
+
+        self.assertEqual(r1.area(), 18)
+        self.assertEqual(r2.area(), 4149762)
+        self.assertEqual(r3.area(), 1)
