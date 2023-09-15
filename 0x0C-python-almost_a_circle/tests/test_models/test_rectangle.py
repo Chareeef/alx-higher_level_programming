@@ -211,6 +211,7 @@ class TestRectangleDisplay(unittest.TestCase):
             r = Rectangle(8, 8)
             r.display(9)
 
+
 class TestRectanglePrint(unittest.TestCase):
     '''
     This class gathers test cases to ensure that
@@ -236,7 +237,6 @@ class TestRectanglePrint(unittest.TestCase):
         expected = "[Rectangle] (1) 3/2 - 5/7"
 
         self.assertEqual(returned_string, expected)
-
 
         r = Rectangle(5, 7, id=7)
 
@@ -270,3 +270,68 @@ class TestRectanglePrint(unittest.TestCase):
         printed = self.stdout.getvalue()
 
         self.assertEqual(printed, expected)
+
+
+class TestRectangleUpdate(unittest.TestCase):
+    '''
+    This class gathers test cases to ensure that
+    the Rectangle's update method works conveniently
+    '''
+
+    def setUp(self):
+        '''Reset Base's number of objects to 0 before every test'''
+        Base._Base__nb_objects = 0
+
+    def test_update_all(self):
+        '''Test for updating all attributes'''
+
+        r1 = Rectangle(6, 6, 3, 8, 9)
+        self.assertEqual(r1.__str__(), "[Rectangle] (9) 3/8 - 6/6")
+
+        r1.update(7, 2, 3, 4, 5)
+        self.assertEqual(r1.__str__(), "[Rectangle] (7) 4/5 - 2/3")
+
+        r2 = Rectangle(5, 7, 3)
+        self.assertEqual(r2.__str__(), "[Rectangle] (1) 3/0 - 5/7")
+
+        r2.update(id=7, x=2, y=3, height=4, width=5)
+        self.assertEqual(r2.__str__(), "[Rectangle] (7) 2/3 - 5/4")
+
+    def test_update_some(self):
+        '''Test for updating some attributes'''
+
+        r1 = Rectangle(6, 6, 3, 8)
+        self.assertEqual(r1.__str__(), "[Rectangle] (1) 3/8 - 6/6")
+
+        r1.update(7)
+        self.assertEqual(r1.__str__(), "[Rectangle] (7) 3/8 - 6/6")
+
+        r1.update(y=9)
+        self.assertEqual(r1.__str__(), "[Rectangle] (7) 3/9 - 6/6")
+
+        r1.update(99, 4, 3)
+        self.assertEqual(r1.__str__(), "[Rectangle] (99) 3/9 - 4/3")
+
+        r1.update(id=8, width=8, x=0)
+        self.assertEqual(r1.__str__(), "[Rectangle] (8) 0/9 - 8/3")
+
+    def test_update_mixed(self):
+        '''Test for updating with *args and **kwargs'''
+
+        r1 = Rectangle(6, 6, 3, 8)
+        self.assertEqual(r1.__str__(), "[Rectangle] (1) 3/8 - 6/6")
+
+        r1.update(7, 1, height=9, x=0, y=0)
+        self.assertEqual(r1.__str__(), "[Rectangle] (7) 3/8 - 1/6")
+
+    def test_update_wrong(self):
+        '''Test for updating with wrong arguments'''
+
+        r1 = Rectangle(6, 6, 3, 8)
+        self.assertEqual(r1.__str__(), "[Rectangle] (1) 3/8 - 6/6")
+
+        with self.assertRaisesRegex(TypeError, 'x must be an integer'):
+            r1.update(8, 4, 8, '7')
+
+        with self.assertRaisesRegex(ValueError, 'width must be > 0'):
+            r1.update(id=9, height=9, x=7, width=0)

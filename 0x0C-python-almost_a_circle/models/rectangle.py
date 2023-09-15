@@ -96,6 +96,20 @@ class Rectangle(Base):
 
         print(rect_repr)
 
+    def update(self, *args, **kwargs):
+        '''Update Rectangle arguments'''
+
+        if args and len(args) > 0:
+            i = 0
+            attrs = ['id', 'width', 'height', 'x', 'y']
+
+            for i in range(len(args)):
+                setattr(self, attrs[i], args[i])
+
+        elif kwargs:
+            for attr, value in kwargs.items():
+                setattr(self, attr, value)
+
     def __str__(self):
         '''Return a Rectangle definition'''
 
