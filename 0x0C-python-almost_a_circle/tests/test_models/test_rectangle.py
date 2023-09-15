@@ -198,3 +198,63 @@ class TestRectangleDisplay(unittest.TestCase):
         with self.assertRaises(TypeError):
             r = Rectangle(8, 8)
             r.display(9)
+
+class TestRectanglePrint(unittest.TestCase):
+    '''
+    This class gathers test cases to ensure that
+    the Rectangle's __str__ method works well
+    '''
+
+    def setUp(self):
+        '''Redirect standard output to capture any function output'''
+        Base._Base__nb_objects = 0
+        self.stdout = io.StringIO()
+        sys.stdout = self.stdout
+
+    def tearDown(self):
+        '''Restore the standard output'''
+        sys.stdout = sys.__stdout__
+
+    def test_str_return(self):
+        '''Test the Rectangle's __str__ magic method returned string'''
+
+        r1 = Rectangle(5, 7, 3, 2)
+
+        returned_string = r1.__str__()
+        expected = "[Rectangle] (1) 3/2 - 5/7"
+
+        self.assertEqual(returned_string, expected)
+
+
+        r = Rectangle(5, 7, id=7)
+
+        returned_string = r.__str__()
+        expected = "[Rectangle] (7) 0/0 - 5/7"
+
+        self.assertEqual(returned_string, expected)
+
+        r1 = Rectangle(1, 1, 1)
+
+        returned_string = r1.__str__()
+        expected = "[Rectangle] (2) 1/0 - 1/1"
+
+        self.assertEqual(returned_string, expected)
+
+    def test_print_rectangle(self):
+        '''Test printing the Rectangle'''
+
+        r = Rectangle(7, 5, id=99)
+        print(r)
+        expected = "[Rectangle] (99) 0/0 - 7/5\n"
+
+        rect = Rectangle(7, 5, 8, 3)
+        print(rect)
+        expected += "[Rectangle] (1) 8/3 - 7/5\n"
+
+        r = Rectangle(9, 85, y=3)
+        print(r)
+        expected += "[Rectangle] (2) 0/3 - 9/85\n"
+
+        printed = self.stdout.getvalue()
+
+        self.assertEqual(printed, expected)

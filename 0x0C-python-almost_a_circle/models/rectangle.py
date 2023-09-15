@@ -94,3 +94,10 @@ class Rectangle(Base):
                 rect_repr += '\n'
 
         print(rect_repr)
+
+    def __str__(self):
+        '''Return a Rectangle definition'''
+
+        printed = f"[Rectangle] ({self.id}) {self.x}/{self.y} - "
+        printed += f"{self.width}/{self.height}"
+        return printed
