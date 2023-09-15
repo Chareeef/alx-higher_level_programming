@@ -1,6 +1,8 @@
 #!/usr/bin/python3
 '''Test The Rectangle class using unittest'''
 import unittest
+import sys
+import io
 from models.rectangle import Rectangle
 from models.base import Base
 
@@ -66,7 +68,7 @@ class TestRectangleInstantiation(unittest.TestCase):
 
     def test_setters_exceptions(self):
         '''Test that setters raise the right exceptions'''
-        
+
         with self.assertRaisesRegex(TypeError, 'width must be an integer'):
             r = Rectangle('foo', 7, 3)
 
@@ -101,7 +103,14 @@ class TestRectangleInstantiation(unittest.TestCase):
             r = Rectangle(2, 2, 5, 8)
             r.y = -6
 
-    def test_rectangle_area(self):
+
+class TestRectangleArea(unittest.TestCase):
+    '''
+    This class gathers test cases to ensure that
+    the Rectangle class area() method works conveniently
+    '''
+
+    def test_area(self):
         '''Test the Rectangle's area() public method'''
 
         r1 = Rectangle(2, 9)
@@ -111,3 +120,81 @@ class TestRectangleInstantiation(unittest.TestCase):
         self.assertEqual(r1.area(), 18)
         self.assertEqual(r2.area(), 4149762)
         self.assertEqual(r3.area(), 1)
+
+    def test_missing_argument(self):
+        '''Test if a wrong arguments number is passed'''
+
+        with self.assertRaises(TypeError):
+            r = Rectangle(8, 8)
+            r.area(9, 7)
+
+
+class TestRectangleDisplay(unittest.TestCase):
+    '''
+    This class gathers test cases to ensure that
+    the Rectangle is displayed conveniently
+    '''
+
+    def setUp(self):
+        '''Redirect standard output to capture any function output'''
+        self.stdout = io.StringIO()
+        sys.stdout = self.stdout
+
+    def tearDown(self):
+        '''Restore the standard output'''
+        sys.stdout = sys.__stdout__
+
+    def test_display_5_on_7(self):
+        '''Test the Rectangle's display() public method'''
+
+        r = Rectangle(5, 7)
+
+        r.display()
+
+        printed = self.stdout.getvalue()
+        expected = "#####\n" * 7
+
+        self.assertEqual(printed, expected)
+
+    def test_display_7_on_5(self):
+        '''Test the Rectangle's display() public method'''
+
+        r = Rectangle(7, 5)
+
+        r.display()
+
+        printed = self.stdout.getvalue()
+        expected = "#######\n" * 5
+
+        self.assertEqual(printed, expected)
+
+    def test_display_3_on_3(self):
+        '''Test the Rectangle's display() public method'''
+
+        r = Rectangle(3, 3)
+
+        r.display()
+
+        printed = self.stdout.getvalue()
+        expected = "###\n" * 3
+
+        self.assertEqual(printed, expected)
+
+    def test_display_1_on_1(self):
+        '''Test the Rectangle's display() public method'''
+
+        r = Rectangle(1, 1)
+
+        r.display()
+
+        printed = self.stdout.getvalue()
+        expected = "#\n"
+
+        self.assertEqual(printed, expected)
+
+    def test_missing_argument(self):
+        '''Test if a wrong arguments number is passed'''
+
+        with self.assertRaises(TypeError):
+            r = Rectangle(8, 8)
+            r.display(9)

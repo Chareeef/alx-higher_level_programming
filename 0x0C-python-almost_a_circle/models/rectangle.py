@@ -78,5 +78,19 @@ class Rectangle(Base):
         self.__y = new_y
 
     def area(self):
-        '''Returnthe rectangle's area'''
+        '''Return the rectangle's area'''
+
         return self.height * self.width
+
+    def display(self):
+        '''Display the rectangle using `#` symbol'''
+
+        rect_repr = ''
+
+        for h in range(self.height):
+            for w in range(self.width):
+                rect_repr += '#'
+            if h < self.height - 1:
+                rect_repr += '\n'
+
+        print(rect_repr)
