@@ -23,6 +23,15 @@ class TestRectangleInstantiation(unittest.TestCase):
         self.assertTrue(type(r1) is Rectangle)
         self.assertTrue(issubclass(Rectangle, Base))
 
+    def test_missing_argument(self):
+        '''Test if a wrong arguments number is passed'''
+
+        with self.assertRaises(TypeError):
+            r1 = Rectangle(8)
+
+        with self.assertRaises(TypeError):
+            r2 = Rectangle(0, 1, 2, 3, 4, 5)
+
     def test_correct_attributes(self):
         '''Test correct attributes for each instance'''
 
@@ -40,26 +49,51 @@ class TestRectangleInstantiation(unittest.TestCase):
         self.assertEqual(r2_atrr, (20, 30, 0, 0, 2))
         self.assertEqual(r3_atrr, (25, 25, 0, 0, 5))
         self.assertEqual(r4_atrr, (3, 6, 0, 6, 3))
-        
+
     def test_getters_and_setters(self):
         '''Test getters and setters for each attribute'''
 
         r1 = Rectangle(10, 5, 2, 1, 6)
 
-        r1.width = 5.5
+        r1.width = 5
         r1.height = 9
         r1.x = 7
         r1.y = 3
 
         attrs = (r1.width, r1.height, r1.x, r1.y, r1.id)
 
-        self.assertEqual(attrs, (5.5, 9, 7, 3, 6))
+        self.assertEqual(attrs, (5, 9, 7, 3, 6))
 
-    def test_missing_argument(self):
-        '''Test if a wrong arguments number is passed'''
+    def test_setters_exceptions(self):
+        '''Test that setters raise the right exceptions'''
+        
+        with self.assertRaisesRegex(TypeError, 'width must be an integer'):
+            r = Rectangle('foo', 7, 3)
 
-        with self.assertRaises(TypeError):
-            r1 = Rectangle(8)
+        with self.assertRaisesRegex(TypeError, 'width must be an integer'):
+            r = Rectangle(4, 7)
+            r.width = True
 
-        with self.assertRaises(TypeError):
-            r2 = Rectangle(0, 1, 2, 3, 4, 5)
+        with self.assertRaisesRegex(TypeError, 'height must be an integer'):
+            r = Rectangle(9, 7.7, 3)
+
+        with self.assertRaisesRegex(TypeError, 'y must be an integer'):
+            r = Rectangle(4, 3)
+            r.y = [7]
+
+        with self.assertRaisesRegex(TypeError, 'x must be an integer'):
+            r = Rectangle(4, 3, 'bar', 'Doe', 7)
+
+        with self.assertRaisesRegex(ValueError, 'height must be > 0'):
+            r = Rectangle(4, 3)
+            r.height = 0
+
+        with self.assertRaisesRegex(ValueError, 'width must be > 0'):
+            r = Rectangle(-4, -3)
+
+        with self.assertRaisesRegex(ValueError, 'x must be >= 0'):
+            r = Rectangle(2, 2, -3, 0)
+
+        with self.assertRaisesRegex(ValueError, 'y must be >= 0'):
+            r = Rectangle(2, 2, 5, 8)
+            r.y = -6

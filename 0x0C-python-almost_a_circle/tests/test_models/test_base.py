@@ -38,4 +38,8 @@ class TestBaseInstantiation(unittest.TestCase):
         self.assertEqual(b3.id, 9)
         self.assertEqual(b4.id, 3)
 
+    def test_missing_argument(self):
+        '''Test if a wrong arguments number is passed'''
 
+        with self.assertRaises(TypeError):
+            b = Base(9, 5)
