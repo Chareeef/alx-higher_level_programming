@@ -335,3 +335,36 @@ class TestRectangleUpdate(unittest.TestCase):
 
         with self.assertRaisesRegex(ValueError, 'width must be > 0'):
             r1.update(id=9, height=9, x=7, width=0)
+
+
+class TestRectangleJSON(unittest.TestCase):
+    '''
+    This class gathers test cases to ensure that
+    the Rectangle class handles JSON conversions conveniently
+    '''
+
+    def setUp(self):
+        '''Method that runs before every test'''
+        Base._Base__nb_objects = 0
+
+    def test_to_dictionary(self):
+        '''Test to_dictionary() method'''
+
+        r1 = Rectangle(2, 4, 1, 1)
+        d1 = r1.to_dictionary()
+        expected = {'id': 1, 'width': 2, 'height': 4, 'x': 1, 'y': 1}
+
+        self.assertEqual(d1, expected)
+        self.assertEqual(type(d1), dict)
+
+        r2 = Rectangle(5, 8, id=9)
+        d2 = r2.to_dictionary()
+        expected = {'id': 9, 'width': 5, 'height': 8, 'x': 0, 'y': 0}
+
+        self.assertEqual(d2, expected)
+
+        r2.update(**d1)
+        d2 = r2.to_dictionary()
+
+        self.assertEqual(d1, d2)
+        self.assertNotEqual(r1, r2)

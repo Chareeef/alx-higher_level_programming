@@ -49,3 +49,15 @@ class Square(Rectangle):
         printed = f"[Square] ({self.id}) {self.x}/{self.y} - "
         printed += f"{self.size}"
         return printed
+
+    def to_dictionary(self):
+        '''Return a dictionary description of the Square instance'''
+
+        square_dict = {}
+
+        square_dict['id'] = self.id
+        square_dict['size'] = self.size
+        square_dict['x'] = self.x
+        square_dict['y'] = self.y
+
+        return square_dict

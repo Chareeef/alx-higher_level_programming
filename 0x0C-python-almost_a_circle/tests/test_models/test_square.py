@@ -346,3 +346,36 @@ class TestSquareUpdate(unittest.TestCase):
 
         with self.assertRaisesRegex(ValueError, 'width must be > 0'):
             s1.update(id=9, x=7, size=0)
+
+
+class TestSquareJSON(unittest.TestCase):
+    '''
+    This class gathers test cases to ensure that
+    the Square class handles JSON conversions conveniently
+    '''
+
+    def setUp(self):
+        '''Method that runs before every test'''
+        Base._Base__nb_objects = 0
+
+    def test_to_dictionary(self):
+        '''Test to_dictionary() method'''
+
+        s1 = Square(4, 3, 2)
+        d1 = s1.to_dictionary()
+        expected = {'id': 1, 'size': 4, 'x': 3, 'y': 2}
+
+        self.assertEqual(d1, expected)
+        self.assertEqual(type(d1), dict)
+
+        s2 = Square(5, 8, id=77)
+        d2 = s2.to_dictionary()
+        expected = {'id': 77, 'size': 5, 'x': 8, 'y': 0}
+
+        self.assertEqual(d2, expected)
+
+        s2.update(**d1)
+        d2 = s2.to_dictionary()
+
+        self.assertEqual(d1, d2)
+        self.assertNotEqual(s1, s2)
