@@ -105,6 +105,48 @@ class TestBaseJSON(unittest.TestCase):
         with self.assertRaises(TypeError):
             wrong_json_str = Base.to_json_string([{'id': 8}], [{'x': 7}])
 
+    def test_from_json_string_normal(self):
+        '''test from_json_string() static method in normal cases'''
+
+        list_str_1 = '[{"id": 5, "width": 4, "height": 3, "x": 0, "y": 0}]'
+        list_1 = Base.from_json_string(list_str_1)
+        self.assertIs(type(list_1), list)
+
+        expected_list_1 = [{'id': 5, 'width': 4, 'height': 3, 'x': 0, 'y': 0}]
+
+        self.assertEqual(list_1, expected_list_1)
+
+        list_str_2 = '[{"id": 5, "width": 4, "height": 3, "x": 0, "y": 0},'
+        list_str_2 += ' {"id": 1, "size": 9, "x": 2, "y" : 2}]'
+        list_2 = Base.from_json_string(list_str_2)
+
+        expected_list_2 = [{'id': 5, 'width': 4, 'height': 3, 'x': 0, 'y': 0}]
+        expected_list_2.append({'id': 1, 'size': 9, 'x': 2, 'y': 2})
+
+        self.assertEqual(list_2, expected_list_2)
+
+    def test_from_json_string_edge(self):
+        '''Test from_json_string() static method in edge cases'''
+
+        json_list_None = Base.from_json_string(None)
+        json_list_empty_string = Base.from_json_string('')
+        json_list_empty_list = Base.from_json_string('[]')
+        json_list_empty_dict = Base.from_json_string('[{}]')
+
+        self.assertEqual(json_list_None, [])
+        self.assertEqual(json_list_empty_string, [])
+        self.assertEqual(json_list_empty_list, [])
+        self.assertEqual(json_list_empty_dict, [{}])
+
+        with self.assertRaises(TypeError):
+            wrong_json_list = Base.from_json_string()
+
+        with self.assertRaises(TypeError):
+            wrong_json_list = Base.from_json_string('[{"y": 8}]', '[{"x": 7}]')
+
+        with self.assertRaises(json.decoder.JSONDecodeError):
+            wrong_json_list = Base.from_json_string('[{"id": 8}], [{"x": 7}]')
+
     def test_save_to_file_normal(self):
         '''Test save_to_file() class method in normal cases'''
 
