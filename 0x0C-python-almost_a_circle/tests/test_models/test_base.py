@@ -2,6 +2,8 @@
 '''Test The Base class using unittest'''
 import unittest
 import json
+import os
+import glob
 from models.base import Base
 from models.rectangle import Rectangle
 from models.square import Square
@@ -58,8 +60,8 @@ class TestBaseJSON(unittest.TestCase):
         '''Method that runs before every test'''
         Base._Base__nb_objects = 0
 
-    def test_to_json_string(self):
-        '''Test to_json_string() static method'''
+    def test_to_json_string_normal(self):
+        '''test to_json_string() static method in normal cases'''
 
         r = Rectangle(4, 3, id=5)
         s = Square(9, 2, 2)
@@ -86,16 +88,102 @@ class TestBaseJSON(unittest.TestCase):
 
         self.assertEqual(json.loads(json_str_2), json.loads(expected_str_2))
 
-        # Edge cases:
+    def test_to_json_string_edge(self):
+        '''Test to_json_string() static method in edge cases'''
 
         json_str_None = Base.to_json_string(None)
         json_str_empty = Base.to_json_string([])
+        json_str_empty_dict = Base.to_json_string([{}])
 
         self.assertEqual(json_str_None, '[]')
         self.assertEqual(json_str_empty, '[]')
+        self.assertEqual(json_str_empty_dict, '[{}]')
 
         with self.assertRaises(TypeError):
             wrong_json_str = Base.to_json_string()
 
         with self.assertRaises(TypeError):
             wrong_json_str = Base.to_json_string([{'id': 8}], [{'x': 7}])
+
+    def test_save_to_file_normal(self):
+        '''Test save_to_file() class method in normal cases'''
+
+        r = Rectangle(4, 3, id=5)
+        s1 = Square(4, 2, 2)
+        s2 = Square(8, id=3)
+
+        d_r = r.to_dictionary()
+        d_s1 = s1.to_dictionary()
+        d_s2 = s2.to_dictionary()
+
+        # Rectangle case:
+
+        Rectangle.save_to_file([d_r])
+        expected_str_1 = '[{"id": 5, "width": 4, "height": 3, "x": 0, "y": 0}]'
+
+        with open('Rectangle.json', 'r', encoding='utf-8') as f:
+            file_content = f.read()
+            self.assertEqual(json.loads(file_content),
+                             json.loads(expected_str_1))
+
+        # Square case:
+
+        Square.save_to_file([d_s1, d_s2])
+        expected_str_2 = '[{"id": 1, "size": 4, "x": 2, "y" : 2}, '
+        expected_str_2 += '{"id": 3, "size": 8, "x": 0, "y" : 0}]'
+
+        with open('Square.json', 'r', encoding='utf-8') as f:
+            file_content = f.read()
+            self.assertEqual(json.loads(file_content),
+                             json.loads(expected_str_2))
+
+        # Base case:
+
+        Base.save_to_file([d_s2, d_r, d_s1])
+        expected_str_3 = '[{"id": 3, "size": 8, "x": 0, "y" : 0}, '
+        expected_str_3 += '{"id": 5, "width": 4, "height": 3, "x": 0, "y": 0},'
+        expected_str_3 += ' {"id": 1, "size": 4, "x": 2, "y" : 2}]'
+
+        with open('Base.json', 'r', encoding='utf-8') as f:
+            file_content = f.read()
+            self.assertEqual(json.loads(file_content),
+                             json.loads(expected_str_3))
+
+    def test_save_to_file_edge(self):
+        '''Test save_to_file() class method in edge cases'''
+
+        r = Rectangle(4, 3, id=5)
+        s1 = Square(4, 2, 2)
+        s2 = Square(8, id=3)
+
+        d_r = r.to_dictionary()
+        d_s1 = s1.to_dictionary()
+        d_s2 = s2.to_dictionary()
+
+        # Passing None:
+
+        Rectangle.save_to_file(None)
+
+        with open('Rectangle.json', 'r', encoding='utf-8') as f:
+            self.assertEqual(f.read(), '[]')
+
+        # Square in Rectangle.json which already exists:
+
+        Rectangle.save_to_file([d_s1, d_s2])
+
+        with open('Rectangle.json', 'r', encoding='utf-8') as f:
+            self.assertEqual(f.read(), json.dumps([d_s1, d_s2]))
+
+        # Passing wrong arguments number:
+
+        with self.assertRaises(TypeError):
+            Square.save_to_file('98', 'Street')
+
+    def tearDown(self):
+        '''Runs after every test function'''
+
+        for file in glob.glob('*.json'):
+            try:
+                os.remove(file)
+            except OSError:
+                pass
