@@ -47,6 +47,41 @@ class Base:
         '''Writes the JSON string representation of list_objs to a file'''
 
         filename = cls.__name__ + '.json'
+        dicts = []
+        if type(list_objs) is list:
+            for obj in list_objs:
+                dicts.append(obj.to_dictionary())
 
         with open(filename, 'w', encoding='utf-8') as f:
-            f.write(cls.to_json_string(list_objs))
+            f.write(cls.to_json_string(dicts))
+
+    @classmethod
+    def load_from_file(cls):
+        '''That returns a list of instances from a JSON in a file'''
+
+        filename = cls.__name__ + '.json'
+
+        try:
+            list_instances = []
+
+            with open(filename, 'r', encoding='utf-8') as f:
+                json_string = f.read()
+                list_dicts = cls.from_json_string(json_string)
+
+                for dictionary in list_dicts:
+                    list_instances.append(cls.create(**dictionary))
+
+                return list_instances
+
+        except FileNotFoundError:
+            return []
+
+    @classmethod
+    def create(cls, **dictionary):
+        '''Returns an instance with all attributes already set'''
+
+        inst = cls(1, 1)
+
+        inst.update(**dictionary)
+
+        return inst

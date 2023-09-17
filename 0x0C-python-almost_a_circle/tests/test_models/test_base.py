@@ -154,13 +154,9 @@ class TestBaseJSON(unittest.TestCase):
         s1 = Square(4, 2, 2)
         s2 = Square(8, id=3)
 
-        d_r = r.to_dictionary()
-        d_s1 = s1.to_dictionary()
-        d_s2 = s2.to_dictionary()
-
         # Rectangle case:
 
-        Rectangle.save_to_file([d_r])
+        Rectangle.save_to_file([r])
         expected_str_1 = '[{"id": 5, "width": 4, "height": 3, "x": 0, "y": 0}]'
 
         with open('Rectangle.json', 'r', encoding='utf-8') as f:
@@ -170,7 +166,7 @@ class TestBaseJSON(unittest.TestCase):
 
         # Square case:
 
-        Square.save_to_file([d_s1, d_s2])
+        Square.save_to_file([s1, s2])
         expected_str_2 = '[{"id": 1, "size": 4, "x": 2, "y" : 2}, '
         expected_str_2 += '{"id": 3, "size": 8, "x": 0, "y" : 0}]'
 
@@ -181,7 +177,7 @@ class TestBaseJSON(unittest.TestCase):
 
         # Base case:
 
-        Base.save_to_file([d_s2, d_r, d_s1])
+        Base.save_to_file([s2, r, s1])
         expected_str_3 = '[{"id": 3, "size": 8, "x": 0, "y" : 0}, '
         expected_str_3 += '{"id": 5, "width": 4, "height": 3, "x": 0, "y": 0},'
         expected_str_3 += ' {"id": 1, "size": 4, "x": 2, "y" : 2}]'
@@ -211,7 +207,7 @@ class TestBaseJSON(unittest.TestCase):
 
         # Square in Rectangle.json which already exists:
 
-        Rectangle.save_to_file([d_s1, d_s2])
+        Rectangle.save_to_file([s1, s2])
 
         with open('Rectangle.json', 'r', encoding='utf-8') as f:
             self.assertEqual(f.read(), json.dumps([d_s1, d_s2]))
@@ -220,6 +216,114 @@ class TestBaseJSON(unittest.TestCase):
 
         with self.assertRaises(TypeError):
             Square.save_to_file('98', 'Street')
+
+    def test_create_normal(self):
+        '''Test create() class method in normal cases'''
+
+        r1 = Rectangle(4, 6, 5, 2)
+        s1 = Square(3)
+
+        d_r = r1.to_dictionary()
+        d_s = s1.to_dictionary()
+
+        r2 = Rectangle.create(**d_r)
+        s2 = Square.create(**d_s)
+
+        self.assertIs(type(r2), Rectangle)
+        self.assertEqual(r1.to_dictionary(), r2.to_dictionary())
+        self.assertNotEqual(r1, r2)
+        self.assertIsNot(r1, r2)
+
+        self.assertIs(type(s2), Square)
+        self.assertEqual(s1.to_dictionary(), s2.to_dictionary())
+        self.assertNotEqual(s1, s2)
+        self.assertIsNot(s1, s2)
+
+    def test_create_edge(self):
+        '''Test create() class method in edge cases'''
+
+        r1 = Rectangle(4, 6, 5, 2)
+        s1 = Square(3)
+
+        d_r = r1.to_dictionary()
+        d_s = s1.to_dictionary()
+
+        with self.assertRaises(TypeError):
+            r = Rectangle.create(d_s, d_r)
+
+        with self.assertRaises(TypeError):
+            r = Rectangle.create(d_r)
+
+    def test_load_from_file_normal(self):
+        '''Test load_from_file() class method in normal cases'''
+
+        r1 = Rectangle(2, 1, 1, 2)
+        r2 = Rectangle(3, 1)
+        s1 = Square(4, 6, 3)
+        s2 = Square(1, 1, 3, 6)
+
+        # For Rectangle:
+
+        input_rects = [r1, r2]
+        Rectangle.save_to_file(input_rects)
+
+        output_rects = Rectangle.load_from_file()
+
+        rect_pairs = zip(input_rects, output_rects)
+
+        for in_rect, out_rect in rect_pairs:
+            self.assertIsNot(in_rect, out_rect)
+            self.assertNotEqual(in_rect, out_rect)
+            self.assertEqual(in_rect.to_dictionary(), out_rect.to_dictionary())
+            self.assertEqual(in_rect.__dict__, out_rect.__dict__)
+
+        # For Square:
+
+        input_squares = [s1, s2]
+        Square.save_to_file(input_squares)
+
+        output_squares = Square.load_from_file()
+
+        square_pairs = zip(input_squares, output_squares)
+
+        for in_sq, out_sq in square_pairs:
+            self.assertIsNot(in_sq, out_sq)
+            self.assertNotEqual(in_sq, out_sq)
+            self.assertEqual(in_sq.to_dictionary(), out_sq.to_dictionary())
+            self.assertEqual(in_sq.__dict__, out_sq.__dict__)
+
+    def test_load_from_file_edge(self):
+        '''Test load_from_file() class method in edge cases'''
+
+        # Passing wrong arguments number:
+
+        with self.assertRaises(TypeError):
+            output_squares = Square.load_from_file(0)
+
+        # <Class>.json doesn't exist:
+
+        output_rects = Rectangle.load_from_file()
+        self.assertEqual(output_rects, [])
+
+        # Rectangle.json with squares JSON representations:
+
+        s1 = Square(4, 6, 3)
+        s2 = Square(1, 1, 3, 6)
+
+        input_objs = [s1, s2]
+        Rectangle.save_to_file(input_objs)
+
+        output_objs = Rectangle.load_from_file()
+
+        objs_pairs = zip(input_objs, output_objs)
+
+        for in_obj, out_obj in objs_pairs:
+            self.assertIsNot(in_obj, out_obj)
+            self.assertIsNot(type(in_obj), type(out_obj))
+            self.assertNotEqual(in_obj, out_obj)
+            self.assertNotEqual(in_obj.to_dictionary(),
+                                out_obj.to_dictionary())
+            self.assertNotEqual(in_obj.__dict__, out_obj.__dict__)
 
     def tearDown(self):
         '''Runs after every test function'''
