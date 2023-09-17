@@ -2,6 +2,8 @@
 '''This module contains the Base class'''
 import json
 import csv
+import turtle
+from time import sleep
 
 
 class Base:
@@ -135,3 +137,41 @@ class Base:
             return list_instances
         except FileNotFoundError:
             return []
+
+    @staticmethod
+    def draw(rectangles, squares):
+        '''Draw rectangles and squares using turtle module'''
+
+        screen = turtle.Screen()
+        t = turtle.Turtle()
+        t.speed(3)
+
+        for r in rectangles:
+            t.penup()
+            t.setpos(r.x, r.y)
+
+            t.pendown()
+            t.pencolor("red")
+            for _ in range(2):
+                t.forward(r.height)
+                t.right(90)
+                t.forward(r.width)
+                t.right(90)
+
+            sleep(1)
+            t.reset()
+
+        for s in squares:
+            t.penup()
+            t.setpos(s.x, s.y)
+
+            t.pendown()
+            t.pencolor("blue")
+            for _ in range(4):
+                t.forward(s.size)
+                t.right(90)
+
+            sleep(1)
+            t.reset()
+
+        screen.exitonclick()
