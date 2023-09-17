@@ -1,6 +1,7 @@
 #!/usr/bin/python3
 '''This module contains the Base class'''
 import json
+import csv
 
 
 class Base:
@@ -43,6 +44,16 @@ class Base:
         return json.loads(json_string)
 
     @classmethod
+    def create(cls, **dictionary):
+        '''Returns an instance with all attributes already set'''
+
+        inst = cls(1, 1)
+
+        inst.update(**dictionary)
+
+        return inst
+
+    @classmethod
     def save_to_file(cls, list_objs):
         '''Writes the JSON string representation of list_objs to a file'''
 
@@ -57,7 +68,7 @@ class Base:
 
     @classmethod
     def load_from_file(cls):
-        '''That returns a list of instances from a JSON in a file'''
+        '''That returns a list of instances created from a JSON in a file'''
 
         filename = cls.__name__ + '.json'
 
@@ -71,17 +82,56 @@ class Base:
                 for dictionary in list_dicts:
                     list_instances.append(cls.create(**dictionary))
 
-                return list_instances
-
+            return list_instances
         except FileNotFoundError:
             return []
 
     @classmethod
-    def create(cls, **dictionary):
-        '''Returns an instance with all attributes already set'''
+    def save_to_file_csv(cls, list_objs):
+        '''Writes the CSV string representation of list_objs to a file'''
 
-        inst = cls(1, 1)
+        filename = cls.__name__ + '.csv'
 
-        inst.update(**dictionary)
+        if cls.__name__ == 'Rectangle':
+            fieldnames = ['id', 'width', 'height', 'x', 'y']
+        elif cls.__name__ == 'Square':
+            fieldnames = ['id', 'size', 'x', 'y']
 
-        return inst
+        with open(filename, 'w', encoding='utf-8') as csv_file:
+            writer = csv.DictWriter(csv_file, fieldnames=fieldnames)
+
+            writer.writeheader()
+
+            if list_objs is None or len(list_objs) == 0:
+                return
+
+            dictionaries = [obj.to_dictionary() for obj in list_objs]
+
+            for dict_item in dictionaries:
+                writer.writerow(dict_item)
+
+    @classmethod
+    def load_from_file_csv(cls):
+        '''That returns a list of instances from create a CSV file'''
+
+        filename = cls.__name__ + '.csv'
+
+        if cls.__name__ == 'Rectangle':
+            fieldnames = ['id', 'width', 'height', 'x', 'y']
+        elif cls.__name__ == 'Square':
+            fieldnames = ['id', 'size', 'x', 'y']
+
+        list_instances = []
+
+        try:
+            with open(filename, 'r', encoding='utf-8') as csv_file:
+                reader = csv.DictReader(csv_file)
+
+                for dict_item in reader:
+                    for field in fieldnames:
+                        dict_item[field] = int(dict_item[field])
+                    list_instances.append(cls.create(**dict_item))
+
+            return list_instances
+        except FileNotFoundError:
+            return []

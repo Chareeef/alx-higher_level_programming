@@ -53,7 +53,7 @@ class TestBaseInstantiation(unittest.TestCase):
 class TestBaseJSON(unittest.TestCase):
     '''
     This class gathers test cases to ensure that
-    the Base class handles JSON operation conveniently
+    the Base class handles JSON operations conveniently
     '''
 
     def setUp(self):
@@ -329,6 +329,131 @@ class TestBaseJSON(unittest.TestCase):
         '''Runs after every test function'''
 
         for file in glob.glob('*.json'):
+            try:
+                os.remove(file)
+            except OSError:
+                pass
+
+
+class TestBaseCSV(unittest.TestCase):
+    '''
+    This class gathers test cases to ensure that
+    the Base class handles CSV operations conveniently
+    '''
+
+    def setUp(self):
+        '''Method that runs before every test'''
+        Base._Base__nb_objects = 0
+
+    def test_csv_rectangles(self):
+        '''Test serializing and deserializing rectangles in CSV format'''
+
+        r1 = Rectangle(3, 4, 7, 1)
+        r2 = Rectangle(1, 2, id=3)
+
+        input_rects = [r1, r2]
+        Rectangle.save_to_file_csv(input_rects)
+
+        expected_csv = "id,width,height,x,y\n"
+        expected_csv += "1,3,4,7,1\n3,1,2,0,0\n"
+
+        with open('Rectangle.csv', 'r', encoding='utf-8') as f:
+            self.assertEqual(f.read(), expected_csv)
+
+        output_rects = Rectangle.load_from_file_csv()
+
+        rect_pairs = zip(input_rects, output_rects)
+
+        for in_rect, out_rect in rect_pairs:
+            self.assertIsNot(in_rect, out_rect)
+            self.assertNotEqual(in_rect, out_rect)
+            self.assertEqual(in_rect.to_dictionary(), out_rect.to_dictionary())
+            self.assertEqual(in_rect.__dict__, out_rect.__dict__)
+
+    def test_csv_squares(self):
+        '''Test serializing and deserializing squares in CSV format'''
+
+        s1 = Square(7)
+        s2 = Square(1, 5, 3)
+
+        input_sqs = [s1, s2]
+        Square.save_to_file_csv(input_sqs)
+
+        expected_csv = "id,size,x,y\n"
+        expected_csv += "1,7,0,0\n2,1,5,3\n"
+
+        with open('Square.csv', 'r', encoding='utf-8') as f:
+            self.assertEqual(f.read(), expected_csv)
+
+        output_sqs = Square.load_from_file_csv()
+
+        sq_pairs = zip(input_sqs, output_sqs)
+
+        for in_sq, out_sq in sq_pairs:
+            self.assertIsNot(in_sq, out_sq)
+            self.assertNotEqual(in_sq, out_sq)
+            self.assertEqual(in_sq.to_dictionary(), out_sq.to_dictionary())
+            self.assertEqual(in_sq.__dict__, out_sq.__dict__)
+
+    def test_save_to_file_csv_edge(self):
+        '''Test save_to_file_csv() class method in edge cases'''
+
+        r = Rectangle(4, 3, id=5)
+        s1 = Square(4, 2, 2)
+        s2 = Square(8, id=3)
+
+        d_r = r.to_dictionary()
+        d_s1 = s1.to_dictionary()
+        d_s2 = s2.to_dictionary()
+
+        # Passing None:
+
+        Rectangle.save_to_file_csv(None)
+        expected_csv = "id,width,height,x,y\n"
+
+        with open('Rectangle.csv', 'r', encoding='utf-8') as f:
+            self.assertEqual(f.read(), expected_csv)
+
+        # Square in Rectangle.csv:
+
+        with self.assertRaises(ValueError):
+            Rectangle.save_to_file_csv([s1, s2])
+
+        # Passing wrong arguments number:
+
+        with self.assertRaises(TypeError):
+            Square.save_to_file_csv('98', 'Street')
+
+    def test_load_from_file_csv_edge(self):
+        '''Test load_from_file_csv() class method in edge cases'''
+
+        # Passing wrong arguments number:
+
+        with self.assertRaises(TypeError):
+            output_squares = Square.load_from_file_csv(0)
+
+        # <Class>.json doesn't exist:
+
+        output_rects = Rectangle.load_from_file_csv()
+        self.assertEqual(output_rects, [])
+
+        # Rectangle.json with squares JSON representations:
+
+        s1 = Square(4, 6, 3)
+        s2 = Square(1, 1, 3, 6)
+
+        input_objs = [s1, s2]
+        Square.save_to_file_csv(input_objs)
+
+        os.rename('Square.csv', 'Rectangle.csv')
+
+        with self.assertRaises(KeyError):
+            output_objs = Rectangle.load_from_file_csv()
+
+    def tearDown(self):
+        '''Runs after every test function'''
+
+        for file in glob.glob('*.csv'):
             try:
                 os.remove(file)
             except OSError:
