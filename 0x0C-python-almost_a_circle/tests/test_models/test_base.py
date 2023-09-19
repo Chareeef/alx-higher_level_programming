@@ -205,6 +205,23 @@ class TestBaseJSON(unittest.TestCase):
         with open('Rectangle.json', 'r', encoding='utf-8') as f:
             self.assertEqual(f.read(), '[]')
 
+        Square.save_to_file(None)
+
+        with open('Square.json', 'r', encoding='utf-8') as f:
+            self.assertEqual(f.read(), '[]')
+
+        # Passing an empty list:
+
+        Rectangle.save_to_file([])
+
+        with open('Rectangle.json', 'r', encoding='utf-8') as f:
+            self.assertEqual(f.read(), '[]')
+
+        Square.save_to_file([])
+
+        with open('Square.json', 'r', encoding='utf-8') as f:
+            self.assertEqual(f.read(), '[]')
+
         # Square in Rectangle.json which already exists:
 
         Rectangle.save_to_file([s1, s2])

@@ -97,8 +97,14 @@ class TestSquareInstantiation(unittest.TestCase):
         with self.assertRaisesRegex(TypeError, 'x must be an integer'):
             s1 = Square(3, 'bar', 'Doe', 7)
 
+        with self.assertRaisesRegex(TypeError, 'y must be an integer'):
+            s1 = Square(4, 3, '3')
+
         with self.assertRaisesRegex(TypeError, 'width must be an integer'):
             s1 = Square(float('inf'), 'bar', 'Doe', 7)
+
+        with self.assertRaisesRegex(ValueError, 'width must be > 0'):
+            s1 = Square(0)
 
         with self.assertRaisesRegex(ValueError, 'width must be > 0'):
             s1 = Square(4)
@@ -109,6 +115,9 @@ class TestSquareInstantiation(unittest.TestCase):
 
         with self.assertRaisesRegex(ValueError, 'x must be >= 0'):
             s1 = Square(2, -3, 0)
+
+        with self.assertRaisesRegex(ValueError, 'y must be >= 0'):
+            s1 = Square(1, 2, -3)
 
         with self.assertRaisesRegex(ValueError, 'y must be >= 0'):
             s1 = Square(2, 5, 8)
