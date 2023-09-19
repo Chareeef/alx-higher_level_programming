@@ -55,8 +55,6 @@ class Base:
             inst = Rectangle(1, 1)
         elif cls.__name__ == 'Square':
             inst = Square(1)
-        else:
-            inst = cls(0)
 
         inst.update(**dictionary)
 
