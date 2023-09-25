@@ -210,14 +210,18 @@ class TestBaseJSON(unittest.TestCase):
         with open('Square.json', 'r', encoding='utf-8') as f:
             self.assertEqual(f.read(), '[]')
 
-        # Passing an empty list:
+        # Passing an empty list (Rectangle):
 
-        Rectangle.save_to_file([])
+        empty_list = []
+        Rectangle.save_to_file(empty_list)
 
         with open('Rectangle.json', 'r', encoding='utf-8') as f:
             self.assertEqual(f.read(), '[]')
 
-        Square.save_to_file([])
+        # Passing an empty list (Square):
+
+        empty_list = []
+        Square.save_to_file(empty_list)
 
         with open('Square.json', 'r', encoding='utf-8') as f:
             self.assertEqual(f.read(), '[]')
