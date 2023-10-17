@@ -1,5 +1,3 @@
-Certainly! Let's address your questions in a README format to provide you with a comprehensive understanding of databases and SQL.
-
 # Understanding Databases and SQL
 
 ## What's a Database?
