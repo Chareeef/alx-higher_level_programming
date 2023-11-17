@@ -1,5 +1,5 @@
 #!/usr/bin/python3
-'''Script that lists all State objects from the database hbtn_0e_6_usa'''
+'''Script that lists the first State object from the hbtn_0e_6_usa database'''
 
 
 if __name__ == '__main__':
@@ -13,8 +13,9 @@ if __name__ == '__main__':
     passwd = argv[2]
     db = argv[3]
 
-    engine = create_engine(f'mysql+mysqldb://{user}:{passwd}@localhost:3306/{db}')
-    
+    url = f'mysql+mysqldb://{user}:{passwd}@localhost:3306/{db}'
+    engine = create_engine(url)
+
     Session = sessionmaker(bind=engine)
     session = Session()
 
