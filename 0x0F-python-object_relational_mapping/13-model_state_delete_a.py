@@ -23,6 +23,7 @@ if __name__ == '__main__':
     session = Session()
 
     s = aliased(State, name='s')
-    la = '%a%'
-    session.query(s).filter(s.name.like(la)).delete(synchronize_session=False)
+    to_del = session.query(s).filter(s.name.like('%a%')).all()
+    for state in to_del:
+        session.delete(state)
     session.commit()

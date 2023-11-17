@@ -25,8 +25,7 @@ if __name__ == '__main__':
     s = aliased(State, name='s')
     c = aliased(City, name='c')
 
-    results = session.query(s, c).\
-            filter(c.state_id == s.id).order_by(c.id).all()
+    rsts = session.query(s, c).filter(c.state_id == s.id).order_by(c.id).all()
 
-    for (s, c) in results:
+    for (s, c) in rsts:
         print(f'{s.name}: ({c.id}) {c.name}')
