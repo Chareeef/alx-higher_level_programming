@@ -2,7 +2,7 @@
 '''This module contains the class definition of a City'''
 
 
-from model_state import Base, State
+from relationship_state import Base, State
 from sqlalchemy import Column, Integer, String, ForeignKey
 
 
