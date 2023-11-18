@@ -15,10 +15,9 @@ if __name__ == '__main__':
                                 passwd=passwd, db=db)
     curr = conn.cursor()
 
-    curr.execute('SELECT * FROM states WHERE name LIKE "N%"'
+    curr.execute('SELECT * FROM states WHERE name LIKE BINARY "N%"'
                  'ORDER BY id ASC')
 
     rows = curr.fetchall()
     for row in rows:
-        if row[1][0] == 'N':
-            print(row)
+        print(row)
