@@ -1,6 +1,6 @@
 #!/usr/bin/python3
 '''
-Script that lists all State objects, and corresponding City objects,
+Script that lists all City objects, and their respective State object,
 contained in the database hbtn_0e_101_usa
 '''
 
@@ -23,14 +23,11 @@ if __name__ == '__main__':
     Session = sessionmaker(bind=engine)
     session = Session()
 
-    s = aliased(State, name='s')
+    c = aliased(City, name='c')
 
-    states = session.query(s).order_by(s.id).all()
+    cities = session.query(c).order_by(c.id).all()
 
-    for st in states:
-        print(str(st.id) + ':', st.name)
-
-        for c in st.cities:
-            print('\t' + str(c.id) + ':', c.name)
+    for c in cities:
+        print(f'{c.id}: {c.name} -> {c.state.name}')
 
     session.close()
