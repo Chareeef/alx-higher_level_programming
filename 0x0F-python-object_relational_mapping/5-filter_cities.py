@@ -35,3 +35,6 @@ if __name__ == '__main__':
             print(end=', ')
 
     print()
+
+    cur.close()
+    conn.close()
