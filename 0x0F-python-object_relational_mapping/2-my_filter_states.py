@@ -19,10 +19,10 @@ if __name__ == '__main__':
                                 passwd=passwd, db=db)
     curr = conn.cursor()
 
-    curr.execute('SELECT * FROM states WHERE name = "{}"'.format(name) +
-                 ' ORDER BY id ASC')
+    curr.execute('SELECT * FROM states ' +
+                 'WHERE name LIKE BINARY "{}" '.format(name) +
+                 'ORDER BY id ASC')
 
     rows = curr.fetchall()
     for row in rows:
-        if row[1] == name:
-            print(row)
+        print(row)
