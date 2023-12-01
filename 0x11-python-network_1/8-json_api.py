@@ -16,11 +16,13 @@ if __name__ == '__main__':
 
     response = requests.post('http://0.0.0.0:5000/search_user', data=data)
 
-    dict_json = response.json()
+    try:
+        dict_json = response.json()
 
-    if 'id' in dict_json and 'name' in dict_json:
-        print('[{}] {}'.format(dict_json['id'], dict_json['name']))
-    elif len(dict_json) == 0:
-        print('No result')
-    else:
+        if 'id' in dict_json and 'name' in dict_json:
+            print('[{}] {}'.format(dict_json['id'], dict_json['name']))
+        else:
+            print('No result')
+
+    except requests.exceptions.JSONDecodeError:
         print('Not a valid JSON')
