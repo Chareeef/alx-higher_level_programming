@@ -5,28 +5,26 @@
 def find_peak(nums):
     """Return the peak of an unsorted list of integers"""
 
+    # Edge cases
+
     if type(nums) is not list or nums == []:
         return None
+    elif len(nums) == 1:
+        return nums[0]
+    elif nums[0] >= nums[1]:
+        return nums[0]
+    elif nums[-1] >= nums[-2]:
+        return nums[-1]
 
-    peak = nums[0]
-    # print(nums)
+    # O(log(n)) Implementation
 
-    for i in range(1, len(nums) - 1):
-        # print(nums[i], ' ?')
-        if nums[i - 1] < nums[i] and nums[i + 1] < nums[i]:
-            peak = nums[i] if nums[i] > peak else peak
+    n = len(nums) - 1
+    mid = n // 2
 
-        if i == len(nums) - 2:
-            # print(nums[i + 1], ' !')
-            if nums[i + 1] > peak:
-                peak = nums[i + 1]
-
-    return peak
-
-
-if __name__ == "__main__":
-    print(find_peak([1, 2, 4, 6, 3]))
-    print(find_peak([4, 2, 1, 2, 3, 1]))
-    print(find_peak([2, 2, 2]))
-    print(find_peak([-2, -4, 2, 1]))
-    print(find_peak([4, 2, 1, 2, 2, 2, 3, 1]))
+    while mid > 0:
+        if nums[mid] >= nums[mid + 1] and nums[mid] >= nums[mid + 1]:
+            return nums[mid]
+        elif nums[mid] <= nums[mid + 1]:
+            return find_peak(nums[mid + 1:])
+        else:
+            return find_peak(nums[0: mid])
