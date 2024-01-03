@@ -8,13 +8,12 @@ request.get(url, (error, response, body) => {
     return;
   }
 
-  todos = JSON.parse(body);
-  usersStats = {}
-  for (task of todos) {
+  const todos = JSON.parse(body);
+  const usersStats = {};
+  for (const task of todos) {
     if (!(task.userId in usersStats) && task.completed) {
       usersStats[task.userId] = 1;
-    }
-    else if (task.completed) {
+    } else if (task.completed) {
       usersStats[task.userId] += 1;
     }
   }
