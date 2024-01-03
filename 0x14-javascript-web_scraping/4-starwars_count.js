@@ -9,13 +9,12 @@ request.get(process.argv[2], (error, response, body) => {
 
   const dict = JSON.parse(body);
   const filmsList = dict.results;
-  let count = 0;
-  const characterUrl = 'https://swapi-api.alx-tools.com/api/people/18/';
-  for (const film of filmsList) {
-    if (film.characters.includes(characterUrl)) {
-      count++;
-    }
-  }
 
-  console.log(count);
+  console.log(filmsList.reduce((count, film) => {
+    if (film.characters.find((character) => character.endsWith('/18/'))) {
+      return count + 1;
+    } else {
+      return count;
+    }
+  }, 0));
 });
