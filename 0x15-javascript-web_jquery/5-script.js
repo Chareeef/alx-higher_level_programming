@@ -1,3 +1,5 @@
-$('div#add_item').bind('click', () => {
-  $('ul.my_list').append('<li>Item</li>');
+$(function () {
+  $('div#add_item').bind('click', () => {
+    $('ul.my_list').append('<li>Item</li>');
+  });
 });
