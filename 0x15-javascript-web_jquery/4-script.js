@@ -1,5 +1,5 @@
-$( function() {
-  $('div#toggle_header').bind('click', function() {
+$(function () {
+  $('div#toggle_header').bind('click', function () {
     if ($('header').hasClass('green')) {
       $('header').removeClass('green');
       $('header').addClass('red');
